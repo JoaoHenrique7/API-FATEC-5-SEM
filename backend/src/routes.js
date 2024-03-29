@@ -1,0 +1,1 @@
+module.exports.team = require('./routes/team.route')
