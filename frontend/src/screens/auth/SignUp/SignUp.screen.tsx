@@ -1,15 +1,14 @@
 import { ParamListBase } from '@react-navigation/native';
 import { StackScreenProps } from '@react-navigation/stack';
-import React, { useMemo, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useMemo } from 'react';
 import { Image, ImageBackground, Text, View } from 'react-native';
 import { ThemeContextType } from '../../../contexts/ThemeContext/ThemeContext.context';
 import useTheme from '../../../contexts/ThemeContext/useTheme.hook';
 import { URI_IMAGES } from '../../../assets/uri-images.asset';
-import SignInForm from '../components/SignInForm/SignInForm.component';
 import Screen from '../../../components/Screen/Screen.component';
 import styles from './SignUp.style';
 import SignUpForm from '../components/SignUpForm/SignUpForm.component';
+import AuthFooter from '../components/AuthFooter/AuthFooter.component';
 
 function SignUpScreen({ navigation }: StackScreenProps<ParamListBase>): React.JSX.Element {
 	const { theme }: ThemeContextType = useTheme();
@@ -17,15 +16,12 @@ function SignUpScreen({ navigation }: StackScreenProps<ParamListBase>): React.JS
 
 	return (
 		<Screen>
-			<ImageBackground
-				style={style.logoContainer}
-				imageStyle={style.logoContainerImage}
-				source={{ uri: URI_IMAGES.oraclePattern }}
-			>
-				<Image style={style.logo} source={{ uri: URI_IMAGES.oracleLogo }} />
+			<View style={style.logoContainer}>
+				<Image style={style.logo} source={{ uri: URI_IMAGES.patterns.light.oracleLogo }} />
 				<Text style={style.subtitle}>CADASTRO</Text>
-            </ImageBackground>
-            <SignUpForm navigation={navigation} />
+            </View>
+			<SignUpForm navigation={navigation} />
+			<AuthFooter />
 		</Screen>
 	);
 }

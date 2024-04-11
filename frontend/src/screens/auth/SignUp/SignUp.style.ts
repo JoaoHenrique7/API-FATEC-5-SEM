@@ -7,7 +7,8 @@ const styles = (theme: CurrentTheme) =>
 			flexDirection: 'column',
 			justifyContent: 'center',
 			alignItems: 'center',
-			height: 250,
+			height: 150,
+			marginTop: theme.spacing.lg
 		},
 		logoContainerImage: {
 			opacity: 0.08,

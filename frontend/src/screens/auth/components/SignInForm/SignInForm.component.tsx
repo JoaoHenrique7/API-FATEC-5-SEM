@@ -26,7 +26,7 @@ function SignInForm(props: FormProps) {
     return (
         <SafeAreaView style={style.container}>
             <Text>Preencha com suas credenciais:</Text>
-            <TextInputGroup label="Email" />
+            <TextInputGroup label="Email" error="Email inválido" />
             <TextInputGroup label="Senha" input={{ secureTextEntry: true }} />
             <Text><Link to={"/RecoverPassword"} style={style.forgotPassword}>Esqueceu a senha?</Link></Text>
             <ButtonWithLoading label="Sign in" onPress={onSignIn} />

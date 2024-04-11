@@ -17,14 +17,10 @@ function SignInScreen({ navigation }: StackScreenProps<ParamListBase>): React.JS
 
 	return (
 		<Screen>
-			<ImageBackground
-				style={style.logoContainer}
-				imageStyle={style.logoContainerImage}
-				source={{ uri: URI_IMAGES.oraclePattern }}
-			>
-				<Image style={style.logo} source={{ uri: URI_IMAGES.oracleLogo }} />
+			<View style={style.logoContainer}>
+				<Image style={style.logo} source={{ uri: URI_IMAGES.patterns.light.oracleLogo }} />
 				<Text style={style.subtitle}>LOGIN</Text>
-			</ImageBackground>
+			</View>
 			<SignInForm navigation={navigation} />
 			<AuthFooter />
 		</Screen>

@@ -16,7 +16,7 @@ function Screen(props: ScreenProps) {
     return (
         <SafeAreaView style={style.container}>
             <KeyboardAvoidingView style={style.keyboardAvoidingView} behavior="position">
-                <ScrollView style={style.scrollView}>
+                <ScrollView style={style.scrollView} contentContainerStyle={{ justifyContent: 'space-between', flexGrow: 1 }}>
                     {children}
                 </ScrollView>
             </KeyboardAvoidingView>

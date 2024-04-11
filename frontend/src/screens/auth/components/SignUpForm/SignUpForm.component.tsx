@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import useTheme from "../../../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../../../contexts/ThemeContext/ThemeContext.context";
 import styles from "./SignUpForm.style";
+import AuthFooter from "../AuthFooter/AuthFooter.component";
 
 type FormProps = {
     navigation: StackNavigationProp<ParamListBase, string, undefined>;
