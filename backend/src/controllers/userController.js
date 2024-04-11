@@ -69,7 +69,32 @@ module.exports = {
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
-  }
+  },
+// Rota para mudar a senha a partir do email
+  updatePasswordByEmail: async (req, res) => {
+    try {
+      const { email, newPassword } = req.body;
+
+      if (!email || !newPassword) {
+        return res.status(400).json({ message: "Email and newPassword are required." });
+      }
+
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      user.password = hashedPassword;
+
+      await user.save();
+
+      res.json({ message: "Password updated successfully." });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
 
 }
 

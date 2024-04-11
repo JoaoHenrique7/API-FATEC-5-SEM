@@ -8,6 +8,7 @@ import ThemeContextProvider from './src/contexts/ThemeContext/ThemeContext.conte
 import SignInScreen from './src/screens/auth/SignIn/SignIn.screen';
 import SignInForm from './src/screens/auth/components/SignInForm/SignInForm.component';
 import SignUpScreen from './src/screens/auth/SignUp/SignUp.screen';
+import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 
 function App(): React.JSX.Element {
 	const Tab = createBottomTabNavigator();
@@ -30,6 +31,7 @@ function App(): React.JSX.Element {
 				<Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
 					<Stack.Screen name="SignIn" component={SignInScreen} />
 					<Stack.Screen name="SignUp" component={SignUpScreen} />
+					<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
 					<Stack.Screen name="TabRoutes" component={TabRoutes} />
 				</Stack.Navigator>
 			</NavigationContainer>

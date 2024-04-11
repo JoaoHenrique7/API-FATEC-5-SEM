@@ -3,7 +3,7 @@ import ButtonWithLoading from "../../../../components/ButtonWithLoading/ButtonWi
 import TextInputGroup from "../../../../components/TextInputGroup/TextInputGroup.component";
 import { Link, ParamListBase } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import styles from "./SignInForm.style";
+import styles from "./RecoverPasswordForm.style";
 import { useMemo } from "react";
 import useTheme from "../../../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../../../contexts/ThemeContext/ThemeContext.context";
@@ -12,12 +12,12 @@ type FormProps = {
     navigation: StackNavigationProp<ParamListBase, string, undefined>;
 }
 
-function SignInForm(props: FormProps) {
+function RecoverPasswordForm(props: FormProps) {
     const { navigation } = props;
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
 
-    const onSignIn = () => {
+    const onRecoverPassword = () => {
 		setTimeout(() => {
 			navigation.replace('TabRoutes');
 		}, 2000);
@@ -25,16 +25,14 @@ function SignInForm(props: FormProps) {
 
     return (
         <SafeAreaView style={style.container}>
-            <Text>Preencha com suas credenciais:</Text>
+            <Text>Preencha com seu Email de cadastro:</Text>
             <TextInputGroup label="Email" />
-            <TextInputGroup label="Senha" input={{ secureTextEntry: true }} />
-            <Text><Link to={"/RecoverPassword"} style={style.forgotPassword}>Esqueceu a senha?</Link></Text>
-            <ButtonWithLoading label="Sign in" onPress={onSignIn} />
+            <ButtonWithLoading label="Sign in" onPress={onRecoverPassword} />
             <Text>
-                Não possui uma conta? <Link to={"/SignUp"} style={style.link}>Cadastre-se</Link>
+                Já possui uma conta? <Link to={"/SignIn"} style={style.link}>Entre por aqui!</Link>
             </Text>
         </SafeAreaView>
     )
 }
 
-export default SignInForm;
+export default RecoverPasswordForm;
