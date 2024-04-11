@@ -4,7 +4,8 @@ import { CurrentTheme } from '../../contexts/ThemeContext/ThemeContext.context';
 const styles = (theme: CurrentTheme) =>
 	StyleSheet.create({
 		container: {
-			gap: theme.spacing.sm,
+			position: 'relative',
+			gap: theme.spacing.xs,
 		},
 		label: {
 			color: theme.palette.neutral[1000],
@@ -19,6 +20,21 @@ const styles = (theme: CurrentTheme) =>
 			borderRadius: 4,
 			padding: theme.spacing.sm,
 		},
+		icon: {
+			position: 'absolute',
+			top: 35,
+			left: 10,
+			zIndex: 1
+		},
+		error: {
+			color: 'red',
+			fontSize: 12,
+			fontWeight: 'bold',
+			backfaceVisibility: 'hidden'
+		},
+		errorActive: {
+			backfaceVisibility: 'visible'
+		}
 	});
 
 export default styles;

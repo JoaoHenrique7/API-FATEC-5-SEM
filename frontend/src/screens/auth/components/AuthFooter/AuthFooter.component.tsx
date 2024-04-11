@@ -13,7 +13,7 @@ function AuthFooter() {
         <ImageBackground
             style={style.footer}
             imageStyle={style.footerImage}
-            source={{ uri: URI_IMAGES.oraclePattern3 }}
+            source={{ uri: URI_IMAGES.patterns.light.auth }}
         ></ImageBackground>
     )
 }

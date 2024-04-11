@@ -4,8 +4,8 @@ import { CurrentTheme } from '../../../../contexts/ThemeContext/ThemeContext.con
 const styles = (theme: CurrentTheme) =>
 	StyleSheet.create({
         footer: {
-            height: 75,
-            resizeMode: 'repeat',
+            width: '100%',
+            height: 134,
         },
         footerImage: {}
 	});
