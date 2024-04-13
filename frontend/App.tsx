@@ -11,6 +11,7 @@ import CustomHeader from './src/components/CustomHeader/CustomHeader.component';
 import DashboardScreen from './src/screens/admin/Dashboard/Dashboard.screen';
 import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
+import SessionContextProvider from './src/contexts/SessionContext/SessionContext.context';
 
 function App(): React.JSX.Element {
 	const Drawer = createDrawerNavigator();
@@ -32,17 +33,19 @@ function App(): React.JSX.Element {
 	}, [Drawer]);
 
 	return (
-		<ThemeContextProvider>
-			<StatusBar backgroundColor={'black'} />
-			<NavigationContainer>
-				<Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="SignIn" component={SignInScreen} />
-					<Stack.Screen name="SignUp" component={SignUpScreen} />
-					<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
-					<Stack.Screen name="TabRoutes" component={TabRoutes} />
-				</Stack.Navigator>
-			</NavigationContainer>
-		</ThemeContextProvider>
+		<SessionContextProvider>
+			<ThemeContextProvider>
+				<StatusBar backgroundColor={'black'} />
+				<NavigationContainer>
+					<Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
+						<Stack.Screen name="SignIn" component={SignInScreen} />
+						<Stack.Screen name="SignUp" component={SignUpScreen} />
+						<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
+						<Stack.Screen name="TabRoutes" component={TabRoutes} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			</ThemeContextProvider>
+		</SessionContextProvider>
 	);
 }
 

@@ -17,6 +17,9 @@ const styles = (theme: CurrentTheme) =>
 		link: {
 			textDecorationStyle: 'solid',
 			textDecorationLine: 'underline'
+		},
+		error: {
+			color: 'red'
 		}
 	});
 

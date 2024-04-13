@@ -22,7 +22,7 @@ type ButtonWithLoadingProperties = {
 	onPress: (e: GestureResponderEvent) => void;
 };
 
-function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable, onPress }: ButtonWithLoadingProperties) {
+function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable, onPress, }: ButtonWithLoadingProperties) {
 	const { theme }: ThemeContextType = useTheme();
 	const style = useMemo(() => styles(theme), [theme]);
 
@@ -32,6 +32,8 @@ function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable,
 		setLoading(true);
 
 		onPress(e);
+
+		setLoading(false);
 	};
 
 	const getStyle = () => {
