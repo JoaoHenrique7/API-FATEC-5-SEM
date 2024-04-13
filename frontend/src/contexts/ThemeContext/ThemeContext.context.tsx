@@ -20,8 +20,8 @@ export const ThemeContext: Context<ThemeContextType | undefined> = createContext
 function ThemeContextProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
 	const [theme, setTheme]: [CurrentTheme, React.Dispatch<React.SetStateAction<CurrentTheme>>] =
 		useState<CurrentTheme>({
-			theme: 'dark',
-			palette: themes.dark,
+			theme: 'light',
+			palette: themes.light,
 			spacing: spacing,
 		});
 

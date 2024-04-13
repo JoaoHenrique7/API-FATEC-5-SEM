@@ -19,12 +19,18 @@ const styles = (theme: CurrentTheme) =>
 			color: theme.palette.pure.white,
 			borderRadius: 4,
 			padding: theme.spacing.sm,
+			height: 44,
+		},
+		iconContainer: {
+			position: 'absolute',
+			top: 30,
+			right: 18,
+			zIndex: 1,
+			justifyContent: 'center',
+			alignItems: 'center',
 		},
 		icon: {
-			position: 'absolute',
-			top: 35,
-			left: 10,
-			zIndex: 1
+			color: theme.palette.neutral[400],
 		},
 		error: {
 			color: 'red',

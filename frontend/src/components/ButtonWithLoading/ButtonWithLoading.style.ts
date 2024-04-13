@@ -7,7 +7,6 @@ const styles = (theme: CurrentTheme) =>
 			flexDirection: 'row',
 			justifyContent: 'center',
 			gap: theme.spacing.sm,
-			backgroundColor: theme.palette.secondary.light,
 			padding: 12,
 			borderRadius: 4,
 			height: 44,
@@ -16,7 +15,6 @@ const styles = (theme: CurrentTheme) =>
 			flexDirection: 'row',
 			justifyContent: 'center',
 			gap: theme.spacing.sm,
-			backgroundColor: theme.palette.secondary.dark,
 			padding: 12,
 			borderRadius: 4,
 			height: 44,
@@ -28,6 +26,9 @@ const styles = (theme: CurrentTheme) =>
 			textTransform: 'uppercase',
 			textAlign: 'center',
 		},
+		primary: {
+			backgroundColor: theme.palette.primary.dark,
+		}
 	});
 
 export default styles;

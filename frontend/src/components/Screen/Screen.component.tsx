@@ -6,17 +6,25 @@ import { useMemo } from "react";
 
 type ScreenProps = {
     children: React.JSX.Element | React.ReactNode;
+    includePadding?: boolean;
 }
 
-function Screen(props: ScreenProps) {
-    const { children } = props;
+function Screen({ includePadding = true, children }: ScreenProps) {
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
+
+    function getStyle() {
+        if (includePadding) {
+            return { ...style.scrollView, padding: theme.spacing.md };;
+        }
+
+        return style.scrollView;
+    }
 
     return (
         <SafeAreaView style={style.container}>
             <KeyboardAvoidingView style={style.keyboardAvoidingView} behavior="position">
-                <ScrollView style={style.scrollView} contentContainerStyle={{ justifyContent: 'space-between', flexGrow: 1 }}>
+                <ScrollView style={getStyle()} contentContainerStyle={{ justifyContent: 'space-between', flexGrow: 1 }}>
                     {children}
                 </ScrollView>
             </KeyboardAvoidingView>

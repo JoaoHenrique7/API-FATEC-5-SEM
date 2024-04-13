@@ -15,7 +15,7 @@ function SignUpScreen({ navigation }: StackScreenProps<ParamListBase>): React.JS
 	const style = useMemo(() => styles(theme), [theme]);
 
 	return (
-		<Screen>
+		<Screen includePadding={false}>
 			<View style={style.logoContainer}>
 				<Image style={style.logo} source={{ uri: URI_IMAGES.patterns.light.oracleLogo }} />
 				<Text style={style.subtitle}>CADASTRO</Text>

@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import ButtonWithLoading from "../../../../components/ButtonWithLoading/ButtonWithLoading.component";
 import TextInputGroup from "../../../../components/TextInputGroup/TextInputGroup.component";
 import { Link, ParamListBase } from "@react-navigation/native";
@@ -25,7 +25,7 @@ function SignUpForm(props: FormProps) {
 	};
 
     return (
-        <SafeAreaView style={style.container}>
+        <View style={style.container}>
             <Text>Preencha com seus dados completos:</Text>
             <TextInputGroup label="Nome completo" />
             <TextInputGroup label="Email" />
@@ -34,7 +34,7 @@ function SignUpForm(props: FormProps) {
             <Text>
                 Já possui uma conta? <Link to={"/SignIn"} style={style.link}>Entre agora mesmo.</Link>
             </Text>
-        </SafeAreaView>
+        </View>
     )
 }
 
