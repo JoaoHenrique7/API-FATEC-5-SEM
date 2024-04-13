@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
+	Button,
 	GestureResponderEvent,
 	PressableProps,
 	PressableStateCallbackType,
@@ -17,10 +18,11 @@ import { ThemeContextType } from '../../contexts/ThemeContext/ThemeContext.conte
 type ButtonWithLoadingProperties = {
 	label?: string;
 	pressable?: PressableProps;
+	type?: 'primary' | 'secondary';
 	onPress: (e: GestureResponderEvent) => void;
 };
 
-function ButtonWithLoading({ label = 'Click here!', pressable, onPress }: ButtonWithLoadingProperties) {
+function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable, onPress }: ButtonWithLoadingProperties) {
 	const { theme }: ThemeContextType = useTheme();
 	const style = useMemo(() => styles(theme), [theme]);
 
@@ -32,16 +34,33 @@ function ButtonWithLoading({ label = 'Click here!', pressable, onPress }: Button
 		onPress(e);
 	};
 
+	const getStyle = () => {
+		switch (type) {
+			case 'primary':
+				return theme.palette.primary.main;		
+			case 'secondary':
+				return theme.palette.secondary.main;
+			default:
+				return theme.palette.neutral[500];
+		}
+	}
+
 	const pressHandler = ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
 		if (pressed && !isLoading) {
-			return style.containerPressed;
+			return {
+				...style.containerPressed,
+				backgroundColor: getStyle()
+			};
 		}
 
-		return style.container;
+		return {
+			...style.container,
+			backgroundColor: getStyle()
+		};
 	};
 
 	return (
-		<Pressable style={pressHandler} onPress={onPressWrapper} {...pressable}>
+		<Pressable role='button' style={pressHandler} onPress={onPressWrapper} {...pressable}>
 			{isLoading && <LoadingIcon />}
 			{!isLoading && <Text style={style.label}>{label}</Text>}
 		</Pressable>

@@ -1,4 +1,4 @@
-export type Theme = 'dark';
+export type Theme = 'light';
 
 type TonePalette = {
 	100: string;
@@ -33,7 +33,7 @@ export type ColorPalette = {
 };
 
 export const themes: Record<Theme, ColorPalette> = {
-	dark: {
+	light: {
 		pure: {
 			white: '#FFFFFF',
 			black: '#000000',

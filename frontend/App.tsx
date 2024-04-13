@@ -1,28 +1,35 @@
+import 'react-native-gesture-handler';
 import React, { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StatusBar, View } from 'react-native';
+import { StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/screens/protected/Home/Home.screen';
 import ThemeContextProvider from './src/contexts/ThemeContext/ThemeContext.context';
 import SignInScreen from './src/screens/auth/SignIn/SignIn.screen';
-import SignInForm from './src/screens/auth/components/SignInForm/SignInForm.component';
 import SignUpScreen from './src/screens/auth/SignUp/SignUp.screen';
+import { createDrawerNavigator, DrawerContentComponentProps, DrawerHeaderProps } from '@react-navigation/drawer';
+import CustomHeader from './src/components/CustomHeader/CustomHeader.component';
+import DashboardScreen from './src/screens/admin/Dashboard/Dashboard.screen';
+import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 
 function App(): React.JSX.Element {
-	const Tab = createBottomTabNavigator();
+	const Drawer = createDrawerNavigator();
 	const Stack = createStackNavigator();
 
-	// const CustomTabBar = useCallback((props: BottomTabBarProps) => <CustomTabBarLayout {...props} />, []);
+	const CustomHeaderCallback = useCallback((props: DrawerHeaderProps) => <CustomHeader {...props} />, []);
+	const CustomDrawerCallback = useCallback((props: DrawerContentComponentProps) => <CustomDrawer {...props} />, []);
 
 	const TabRoutes = useCallback(() => {
 		return (
-			<Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-				<Tab.Screen name="Home" component={HomeScreen} />
-			</Tab.Navigator>
+			<Drawer.Navigator
+				initialRouteName="Dashboard"
+				drawerContent={CustomDrawerCallback}
+				screenOptions={{ header: CustomHeaderCallback, drawerType: 'slide' }}
+			>
+				<Drawer.Screen name="Dashboard" component={DashboardScreen} />
+			</Drawer.Navigator>
 		);
-	}, [Tab]);
+	}, [Drawer]);
 
 	return (
 		<ThemeContextProvider>
