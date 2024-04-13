@@ -6,15 +6,16 @@ module.exports = {
   // Rota para criar um user
   createUser: async (req, res) => {
     try {
+      const hashedPassword = await bcrypt.hash(req.body.senha, 10); // Gere um hash da senha com um salt de 10 rounds
       const newUser = new User({
         nome: req.body.nome,
         email: req.body.email,
-        senha: req.body.senha,
+        senha: hashedPassword, // Salve a senha hasheada no banco de dados
         tipo: req.body.tipo,
       });
       await newUser.save();
       res.status(201).json(newUser);
-      console.log(newUser)
+      console.log(newUser);
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -44,21 +45,32 @@ module.exports = {
   },
 
   // Rota para atualizar um user
+
   updateUser: async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
-      if (user == null) {
+      if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-      if (req.body.nome != null) {
-        user.nome = req.body.nome;
+  
+      const { nome, email, senha, tipo } = req.body;
+  
+      user.nome = nome !== undefined ? nome : user.nome;
+      user.email = email !== undefined ? email : user.email;
+      user.tipo = tipo !== undefined ? tipo : user.tipo;
+  
+      if (senha !== undefined) {
+        const hashedPassword = await bcrypt.hash(senha, 10);
+        user.senha = hashedPassword;
       }
+  
       await user.save();
       res.json(user);
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
   },
+  
 
   // Rota para excluir um user
   deleteUser: async (req, res) => {
@@ -98,6 +110,20 @@ module.exports = {
       res.status(500).json({ message: err.message });
     }
   },
+  findByEmail: async (req, res) => {
+    try {
+      const {emailReq} = req.body;
+
+      const user = await User.findOne({email: emailReq });
+      if (user == null) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.status(200).json(user);
+    } catch (err) {
+      return res.status(500).json({ peri: err.message });
+    }
+  },
+
 
   sendEmail: async (req, res) => {
     const transporter = nodemailer.createTransport({

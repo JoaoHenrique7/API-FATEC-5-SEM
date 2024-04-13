@@ -96,6 +96,15 @@ const UserService = {
       console.error('Erro ao mandar o email:', error);
       throw error;
     }
+  },
+  findByEmail: async(email: string): Promise<any> =>{
+    try{
+      const resp = await axios.post(`${BASE_URL}/findByEmail`, { emailReq: email });
+      return resp.status
+    } catch (error){
+      console.error('Erro ao mandar o email:', error);
+      throw error;
+    }
   }
 };
 
