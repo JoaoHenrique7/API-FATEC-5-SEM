@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const nodemailer = require("nodemailer");
+require('dotenv/config')
 module.exports = {
 
   // Rota para criar um user
@@ -104,7 +105,7 @@ module.exports = {
       port: 587,
       auth: {
         user: "gugamelima@gmail.com",
-        pass: "icvz yjzl vpcu pcef",
+        pass: process.env.PASSWORD_EMAIL,
       },
     });
     const {email} = req.body;
