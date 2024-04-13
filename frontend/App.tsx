@@ -9,7 +9,6 @@ import SignUpScreen from './src/screens/auth/SignUp/SignUp.screen';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerHeaderProps } from '@react-navigation/drawer';
 import CustomHeader from './src/components/CustomHeader/CustomHeader.component';
 import DashboardScreen from './src/screens/admin/Dashboard/Dashboard.screen';
-import HomeScreen from './src/screens/protected/Home/Home.screen';
 import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 
@@ -23,11 +22,11 @@ function App(): React.JSX.Element {
 	const TabRoutes = useCallback(() => {
 		return (
 			<Drawer.Navigator
-				initialRouteName="Home"
+				initialRouteName="Dashboard"
 				drawerContent={CustomDrawerCallback}
 				screenOptions={{ header: CustomHeaderCallback, drawerType: 'slide' }}
 			>
-				<Drawer.Screen name="Home" component={DashboardScreen} />
+				<Drawer.Screen name="Dashboard" component={DashboardScreen} />
 			</Drawer.Navigator>
 		);
 	}, [Drawer]);
