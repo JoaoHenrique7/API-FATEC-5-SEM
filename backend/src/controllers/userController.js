@@ -104,14 +104,14 @@ module.exports = {
       host: "smtp.gmail.com",
       port: 587,
       auth: {
-        user: "gugamelima@gmail.com",
+        user: "bytech.fatec.api@gmail.com",
         pass: process.env.PASSWORD_EMAIL,
       },
     });
     const {email} = req.body;
     const code =  Math.floor(100000 + Math.random() * 900000)
     const info = await transporter.sendMail({
-      from: '"Bytech" <gugamelima@gmail.com>', // sender address
+      from: '"Bytech" <bytech.fatec.api@gmail.com>', // sender address
       to: email, // list of receivers
       subject: "Mudança de senha", // Subject line
       text: String(code), // plain text body
