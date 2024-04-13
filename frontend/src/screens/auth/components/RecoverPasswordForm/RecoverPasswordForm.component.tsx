@@ -28,41 +28,56 @@ function RecoverPasswordForm(props: FormProps) {
 
     const [screen, setScreen] = useState(Screen.EmailInput);
     const [email, setEmail] = useState("");
-    const [code, setCode] = useState("");
-    const [checkCode, setCheckCode] = useState("")
+    const [code, setCode] = useState<number>(0);
+    const [checkCode, setCheckCode] = useState<number>(0)
 
     const handleEmailChange = (email: React.SetStateAction<string>) => {
         setEmail(email);
       };
 
-    const handleCodeChange = (codeStr:  React.SetStateAction<string>) => {
-        setCode(codeStr);
-      };
-
-    const isValidEmail = () => {
-        return 'pai';
+    const handleCodeChange = (codeStr: string) => {
+        setCode(parseInt(codeStr, 10)); // 10 é a base numérica, pode ser omitida para usar a base 10 por padrão
     };
 
-        const sendEmail = async () => {
-            try {
-            const resp = await UserService.sendEmail(email);
-            
-            const message = resp.message;
-            setCheckCode(String(message))
-            // console.log(checkCode)
-            // console.log(typeof(message))
-            
-            setScreen(Screen.VerifyCode);
-            } catch (error) {
+    const isValidEmail = async () => {
+        try {
+            const resp = await UserService.findByEmail(email);
+            // let status = resp.status;
+            if (resp === 200){
+                return 1
+            }else{
+                return 0 
+            }
+
+        } catch (error) {
             console.error('Erro ao enviar email:', error);
+            
+        } 
+    };
+
+    const sendEmail = async () => {
+        let validEmail = isValidEmail()
+        if (await validEmail === 1){
+            try {
+                const resp = await UserService.sendEmail(email);
+                let message = resp.message;
+                setCheckCode(message)
+                setScreen(Screen.VerifyCode);
+            } catch (error) {
+                console.error('Erro ao enviar email:', error);
             } 
-        };
+        }else{
+            alert("Email não cadastrado."); 
+    }
+    };
 
     const isSameCode =  () =>{
+        console.log(checkCode)
         if (code === checkCode){
             setScreen(Screen.NewPassword);
+        }else{
+            alert("Por favor, insira o codigo certo.");
         }
-        alert("Por favor, insira o codigo certo.");
     }
 
     const renderScreen = () => {
@@ -78,7 +93,6 @@ function RecoverPasswordForm(props: FormProps) {
             case Screen.VerifyCode:
                 return (
                     <>
-                        {/* Adicione aqui a tela de verificação de código */}
                         <Text>Verificação de Código</Text>
                         <TextInputGroup label="Codigo" input={{ onChangeText: handleCodeChange}}/>
                         <ButtonWithLoading label="Enviar Código" onPress={isSameCode} />
@@ -87,7 +101,6 @@ function RecoverPasswordForm(props: FormProps) {
             case Screen.NewPassword:
                 return (
                     <>
-                        {/* Adicione aqui a tela de verificação de código */}
                         <Text>Nova senha</Text>
                         <TextInputGroup label="Codigo" input={{ onChangeText: handleCodeChange }}/>
                         {/* <ButtonWithLoading label="Enviar Código" onPress={onRecoverPassword} /> */}
