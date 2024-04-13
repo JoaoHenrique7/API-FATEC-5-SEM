@@ -1,13 +1,15 @@
 const User = require('../models/user.model');
-
+const nodemailer = require("nodemailer");
 module.exports = {
 
   // Rota para criar um user
   createUser: async (req, res) => {
     try {
       const newUser = new User({
-        name: req.body.name,
-        // description: req.body.description,
+        nome: req.body.nome,
+        email: req.body.email,
+        senha: req.body.senha,
+        tipo: req.body.tipo,
       });
       await newUser.save();
       res.status(201).json(newUser);
@@ -69,7 +71,53 @@ module.exports = {
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
-  }
+  },
+// Rota para mudar a senha a partir do email
+  updatePasswordByEmail: async (req, res) => {
+    try {
+      const { email, newPassword } = req.body;
 
+      if (!email || !newPassword) {
+        return res.status(400).json({ message: "Email and newPassword are required." });
+      }
+
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      user.password = hashedPassword;
+
+      await user.save();
+
+      res.json({ message: "Password updated successfully." });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  sendEmail: async (req, res) => {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      auth: {
+        user: "gugamelima@gmail.com",
+        pass: "icvz yjzl vpcu pcef",
+      },
+    });
+    const {email} = req.body;
+    const code =  Math.floor(100000 + Math.random() * 900000)
+    const info = await transporter.sendMail({
+      from: '"Bytech" <gugamelima@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: "Mudança de senha", // Subject line
+      text: String(code), // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+    res.status(200).json({ message: code});
+    console.log("Message sent: %s", info.messageId);
+  }
 }
 

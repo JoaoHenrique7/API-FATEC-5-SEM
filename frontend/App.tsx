@@ -11,6 +11,7 @@ import CustomHeader from './src/components/CustomHeader/CustomHeader.component';
 import DashboardScreen from './src/screens/admin/Dashboard/Dashboard.screen';
 import HomeScreen from './src/screens/protected/Home/Home.screen';
 import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
+import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 
 function App(): React.JSX.Element {
 	const Drawer = createDrawerNavigator();
@@ -38,6 +39,7 @@ function App(): React.JSX.Element {
 				<Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
 					<Stack.Screen name="SignIn" component={SignInScreen} />
 					<Stack.Screen name="SignUp" component={SignUpScreen} />
+					<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
 					<Stack.Screen name="TabRoutes" component={TabRoutes} />
 				</Stack.Navigator>
 			</NavigationContainer>

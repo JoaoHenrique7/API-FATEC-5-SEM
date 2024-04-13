@@ -26,8 +26,8 @@ function SignInForm(props: FormProps) {
             <Text>Preencha com suas credenciais:</Text>
             <TextInputGroup label="Email" />
             <TextInputGroup label="Senha" input={{ secureTextEntry: true }} />
-            <Text style={style.forgotPassword} >Esqueceu a senha?</Text>
-            <ButtonWithLoading label="Entrar" onPress={onSignIn} />
+            <Text><Link to={"/RecoverPassword"} style={style.forgotPassword}>Esqueceu a senha?</Link></Text>
+            <ButtonWithLoading label="Sign in" onPress={onSignIn} />
             <Text>
                 Não possui uma conta? <Link to={"/SignUp"} style={style.link}>Cadastre-se</Link>
             </Text>
