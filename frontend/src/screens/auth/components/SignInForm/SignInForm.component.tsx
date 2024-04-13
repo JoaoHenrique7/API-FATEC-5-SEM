@@ -26,7 +26,6 @@ function SignInForm(props: FormProps) {
 
     async function onSignIn() {
         const response: User | { message: string } = await AuthService.login(formData.email, formData.senha);
-
         if ("message" in response) {
             setHasError(true);
             return;

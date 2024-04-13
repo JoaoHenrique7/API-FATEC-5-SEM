@@ -27,35 +27,21 @@ function RecoverPasswordForm(props: FormProps) {
     const style = useMemo(() => styles(theme), [theme]);
 
     const [screen, setScreen] = useState(Screen.EmailInput);
-    const [email, setEmail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [newPasswordConfire, setnewPasswordConfire] = useState("");
 
-    const [code, setCode] = useState<number>(0);
+    const [formData, setFormData] = useState<{ email: string, newPassword: string, newPasswordConfire: string, code: string, checkCode:string}>({ email: '', newPassword: '', newPasswordConfire:'', code:'', checkCode:'' });
+
     const [checkCode, setCheckCode] = useState<number>(0)
 
-    const handleEmailChange = (email: React.SetStateAction<string>) => {
-        setEmail(email);
-    };
-    const handleNewPassword = (newPassword: React.SetStateAction<string>) => {
-        setNewPassword(newPassword);
-    };
-    const handleNewPasswordConfire = (newPasswordConfire: React.SetStateAction<string>) => {
-        setnewPasswordConfire(newPasswordConfire);
-    };
-    const handleCodeChange = (codeStr: string) => {
-        setCode(parseInt(codeStr, 10)); 
-    };
     
     const onFinish = () => {
         navigation.replace('SignIn');
 	};
 
     const createNewPassword = async () => {
-        if (newPassword === newPasswordConfire){
-            console.log(email)
+        if (formData.newPassword === formData.newPasswordConfire){
+            // console.log(formData.email)
             try {
-                const resp = await UserService.updatePasswordByEmail(email, newPassword);
+                const resp = await UserService.updatePasswordByEmail(formData.email, formData.newPassword);
                 alert("Senha modificada! Entre com ela");
                 onFinish() 
             } catch (error) {
@@ -69,7 +55,7 @@ function RecoverPasswordForm(props: FormProps) {
 
     const isValidEmail = async () => {
         try {
-            const resp = await UserService.findByEmail(email);
+            const resp = await UserService.findByEmail(formData.email);
             if (resp === 200){
                 return 1
             }else{
@@ -85,7 +71,7 @@ function RecoverPasswordForm(props: FormProps) {
         let validEmail = isValidEmail()
         if (await validEmail === 1){
             try {
-                const resp = await UserService.sendEmail(email);
+                const resp = await UserService.sendEmail(formData.email);
                 let message = resp.message;
                 setCheckCode(message)
                 setScreen(Screen.VerifyCode);
@@ -99,7 +85,7 @@ function RecoverPasswordForm(props: FormProps) {
 
     const isSameCode =  () =>{
         // console.log(checkCode)
-        if (code === checkCode){
+        if (formData.code === String(checkCode)){
             setScreen(Screen.NewPassword);
         }else{
             alert("Por favor, insira o codigo certo.");
@@ -112,7 +98,7 @@ function RecoverPasswordForm(props: FormProps) {
                 return (
                     <>
                         <Text>Preencha com seu Email de cadastro:</Text>
-                        <TextInputGroup label="Email" key="emailInput" input={{ onChangeText: handleEmailChange }}/>
+                        <TextInputGroup label="Email" key="emailInput" onChangeText={(value: string) => setFormData(prev => ({ ...prev, email: value }))}/>
                         <ButtonWithLoading label="Enviar Código" onPress={sendEmail} />
                         <Text>
                             Já possui uma conta? <Link to={"/SignIn"} style={style.link}>Entre por aqui!</Link>
@@ -123,7 +109,7 @@ function RecoverPasswordForm(props: FormProps) {
                 return (
                     <>
                         <Text>Verificação de Código</Text>
-                        <TextInputGroup label="Codigo" key="codeInput" input={{ onChangeText: handleCodeChange}}/>
+                        <TextInputGroup label="Codigo" key="codeInput" onChangeText={(value: string) => setFormData(prev => ({ ...prev, code: value }))}/>
                         <ButtonWithLoading label="Enviar Código" onPress={isSameCode} />
                     </>
                 );
@@ -131,8 +117,8 @@ function RecoverPasswordForm(props: FormProps) {
                 return (
                     <>
                         <Text>Nova senha</Text>
-                        <TextInputGroup label="Nova Senha" key="newPassword"input={{ onChangeText: handleNewPassword }}/>
-                        <TextInputGroup label="Confirme a nova senha" key="newPasswordVerify" input={{ onChangeText: handleNewPasswordConfire }}/>
+                        <TextInputGroup label="Nova Senha" key="newPassword"onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPassword: value }))}/>
+                        <TextInputGroup label="Confirme a nova senha" key="newPasswordVerify" onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPasswordConfire: value }))}/>
                         <ButtonWithLoading label="Enviar nova Senha" onPress={createNewPassword} />
                     </>
                 );
