@@ -6,8 +6,10 @@ module.exports = {
   createUser: async (req, res) => {
     try {
       const newUser = new User({
-        name: req.body.name,
-        // description: req.body.description,
+        nome: req.body.nome,
+        email: req.body.email,
+        senha: req.body.senha,
+        tipo: req.body.tipo,
       });
       await newUser.save();
       res.status(201).json(newUser);
