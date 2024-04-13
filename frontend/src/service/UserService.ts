@@ -102,7 +102,17 @@ const UserService = {
       const resp = await axios.post(`${BASE_URL}/findByEmail`, { emailReq: email });
       return resp.status
     } catch (error){
-      console.error('Erro ao mandar o email:', error);
+      return 0
+      // console.error('Erro ao mandar o email:', error);
+      // throw error;
+    }
+  },
+  updatePasswordByEmail: async(email: string, newPassword: string):Promise<any> =>{
+    try{
+      const resp = await axios.post(`${BASE_URL}/updatePassword`, { emailReq: email, newPassword: newPassword });
+      return resp.status
+    } catch (error){
+      console.error('Erro ao mudar a senha:', error);
       throw error;
     }
   }

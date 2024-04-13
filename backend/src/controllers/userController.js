@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const nodemailer = require("nodemailer");
 require('dotenv/config')
+const bcrypt = require('bcrypt');
 module.exports = {
 
   // Rota para criar um user
@@ -85,23 +86,23 @@ module.exports = {
       return res.status(500).json({ message: err.message });
     }
   },
+
+
 // Rota para mudar a senha a partir do email
   updatePasswordByEmail: async (req, res) => {
     try {
-      const { email, newPassword } = req.body;
+      const { emailReq, newPassword } = req.body;
 
-      if (!email || !newPassword) {
+      if (!emailReq || !newPassword) {
         return res.status(400).json({ message: "Email and newPassword are required." });
       }
-
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email: emailReq });
       if (!user) {
         return res.status(404).json({ message: "User not found." });
       }
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-      user.password = hashedPassword;
+      user.senha = hashedPassword;
 
       await user.save();
 
@@ -110,6 +111,8 @@ module.exports = {
       res.status(500).json({ message: err.message });
     }
   },
+
+  
   findByEmail: async (req, res) => {
     try {
       const {emailReq} = req.body;
