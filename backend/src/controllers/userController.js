@@ -1,5 +1,5 @@
 const User = require('../models/user.model');
-
+const nodemailer = require("nodemailer");
 module.exports = {
 
   // Rota para criar um user
@@ -96,5 +96,26 @@ module.exports = {
     }
   },
 
+  sendEmail: async (req, res) => {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      auth: {
+        user: "gugamelima@gmail.com",
+        pass: "icvz yjzl vpcu pcef",
+      },
+    });
+    const {email} = req.body;
+    const code =  Math.floor(100000 + Math.random() * 900000)
+    const info = await transporter.sendMail({
+      from: '"Bytech" <gugamelima@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: "Mudança de senha", // Subject line
+      text: String(code), // plain text body
+      // html: "<b>Hello world?</b>", // html body
+    });
+    res.status(200).json({ message: code});
+    console.log("Message sent: %s", info.messageId);
+  }
 }
 

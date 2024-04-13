@@ -14,17 +14,14 @@ import AuthFooter from '../components/AuthFooter/AuthFooter.component';
 function RecoverPasswordScreen({ navigation }: StackScreenProps<ParamListBase>): React.JSX.Element {
 	const { theme }: ThemeContextType = useTheme();
 	const style = useMemo(() => styles(theme), [theme]);
+	const param = 0
 
 	return (
 		<Screen>
-			<ImageBackground
-				style={style.logoContainer}
-				imageStyle={style.logoContainerImage}
-				source={{ uri: URI_IMAGES.oraclePattern }}
-			>
-				<Image style={style.logo} source={{ uri: URI_IMAGES.oracleLogo }} />
-				<Text style={style.subtitle}>LOGIN</Text>
-			</ImageBackground>
+			<View style={style.logoContainer}>
+				<Image style={style.logo} source={{ uri: URI_IMAGES.patterns.light.oracleLogo }} />
+				<Text style={style.subtitle}>Recupere sua senha</Text>
+			</View>
 			<RecoverPasswordForm navigation={navigation} />
 			<AuthFooter />
 		</Screen>
