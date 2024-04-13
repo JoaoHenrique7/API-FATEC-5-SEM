@@ -2,6 +2,20 @@ const User = require('../models/user.model');
 const nodemailer = require("nodemailer");
 require('dotenv/config')
 module.exports = {
+  login: async (req, res) => {
+    try {
+      const { email, senha } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) return res.status(404).json({ message: 'User not found' });
+      if (senha !== user.senha) return res.status(404).json({ message: 'User not found' });
+
+      res.status(201).json(user);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
 
   // Rota para criar um user
   createUser: async (req, res) => {

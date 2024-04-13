@@ -7,20 +7,21 @@ import { ThemeContextType } from '../../contexts/ThemeContext/ThemeContext.conte
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type TextInputGroupProperties = {
-	input?: Omit<TextInputProps, 'style'>;
+	onChangeText: (value: string) => void;
+	input?: Omit<TextInputProps, 'style' | 'onChangeText'>;
 	error?: string;
 	label: string;
 	icon?: string;
 };
 
-function TextInputGroup({ input, label, error }: TextInputGroupProperties) {
+function TextInputGroup({ input, label, error, onChangeText }: TextInputGroupProperties) {
 	const { theme }: ThemeContextType = useTheme();
 	const style = useMemo(() => styles(theme), [theme]);
 
 	return (
 		<View style={style.container}>
 			<Text style={style.label}>{label}</Text>
-			<TextInput style={style.input} {...input} />
+			<TextInput style={style.input} onChangeText={(text: string) => onChangeText(text)} {...input} />
 			<Text style={error ? style.error : { ...style.error, ...style.errorActive }}>{error}</Text>
 		</View>
 	);

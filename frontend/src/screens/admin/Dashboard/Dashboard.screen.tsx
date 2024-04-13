@@ -3,11 +3,15 @@ import { GestureResponderEvent, Text, View } from "react-native";
 import ButtonWithLoading from "../../../components/ButtonWithLoading/ButtonWithLoading.component";
 import { StackScreenProps } from "@react-navigation/stack";
 import Screen from "../../../components/Screen/Screen.component";
+import useSession from "../../../contexts/SessionContext/useSession.hook";
 
 function DashboardScreen({ navigation }: StackScreenProps<ParamListBase>): React.JSX.Element {
+    const { logout } = useSession();
+
     function onPress(e: GestureResponderEvent) {
         e.preventDefault();
 
+        logout();
         navigation.replace('SignIn');
     }
     

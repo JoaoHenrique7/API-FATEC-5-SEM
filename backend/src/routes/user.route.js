@@ -9,5 +9,6 @@ router.patch('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 router.patch('/updatePassword', userController.updatePasswordByEmail)
 router.post('/sendEmail', userController.sendEmail)
+router.post('/login', userController.login)
 
 module.exports = router;

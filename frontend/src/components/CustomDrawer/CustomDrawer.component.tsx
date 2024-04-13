@@ -1,19 +1,36 @@
 import { DrawerContentComponentProps, DrawerContentScrollView } from "@react-navigation/drawer";
 import { EventArg } from "@react-navigation/native";
-import { Pressable, Text, View } from "react-native";
+import { GestureResponderEvent, Pressable, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import useTheme from "../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../contexts/ThemeContext/ThemeContext.context";
 import styles from "./CustomDrawer.style";
 import { useMemo } from "react";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import useSession from "../../contexts/SessionContext/useSession.hook";
 
 function CustomDrawer({ descriptors, navigation, state }: DrawerContentComponentProps) {
     const { theme }: ThemeContextType = useTheme();
-	const style = useMemo(() => styles(theme), [theme]);
+    const style = useMemo(() => styles(theme), [theme]);
+    
+    const { session } = useSession();
+
+    function onPress(e: GestureResponderEvent) {
+        e.preventDefault();
+
+        navigation.navigate("Profile");
+    }
 
     return (
         <DrawerContentScrollView>
             <View>
+                <Pressable onPress={(e) => onPress(e)} style={style.profile}>
+                    <View style={style.data}>
+                        <Text style={style.name}>{session.user?.nome}</Text>
+                        <Text style={style.metadata}>{session.user?.email}</Text>
+                    </View>
+                    <MaterialCommunityIcons style={style.icon} name="menu-right" size={24} />
+                </Pressable>
                 {
                     state.routes.map((route, key) => {
                         const { options } = descriptors[route.key];
