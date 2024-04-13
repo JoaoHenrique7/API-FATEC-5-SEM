@@ -57,7 +57,7 @@
 import axios from 'axios';
 
 // const BASE_URL = 'http://localhost:3000/users'; // rota correta antes do deploy na AWS
-const BASE_URL = 'http://192.168.15.11:3000/users'; // IP do João
+const BASE_URL = 'http://192.168.0.108:3000/users'; // IP do João
 
 const UserService = {
   fetchUsers: async (): Promise<any[]> => {
@@ -88,6 +88,15 @@ const UserService = {
       throw error;
     }
   },
+  sendEmail: async(email: string): Promise<any> =>{
+    try{
+      const resp = await axios.post(`${BASE_URL}/sendEmail`, { email: email });
+      return resp.data
+    } catch (error){
+      console.error('Erro ao mandar o email:', error);
+      throw error;
+    }
+  }
 };
 
 export default UserService;

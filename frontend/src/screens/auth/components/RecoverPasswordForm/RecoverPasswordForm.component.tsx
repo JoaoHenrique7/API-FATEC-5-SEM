@@ -9,6 +9,7 @@ import { useMemo } from "react";
 
 import useTheme from "../../../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../../../contexts/ThemeContext/ThemeContext.context";
+import UserService from "../../../../service/UserService";
 
 type FormProps = {
     navigation: StackNavigationProp<ParamListBase, string, undefined>;
@@ -32,30 +33,34 @@ function RecoverPasswordForm(props: FormProps) {
 
     const handleEmailChange = (email: React.SetStateAction<string>) => {
         setEmail(email);
-        // console.log(email)
       };
 
     const handleCodeChange = (codeStr:  React.SetStateAction<string>) => {
         setCode(codeStr);
-        // console.log('pau ',code)
       };
 
-    const createCode = () => {
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-        setCheckCode(code);
-    };
     const isValidEmail = () => {
         return 'pai';
     };
 
-    const sendEmail = () => {
-
-    };
-    
+        const sendEmail = async () => {
+            try {
+            const resp = await UserService.sendEmail(email);
+            
+            const message = resp.message;
+            setCheckCode(String(message))
+            // console.log(checkCode)
+            // console.log(typeof(message))
+            
+            setScreen(Screen.VerifyCode);
+            } catch (error) {
+            console.error('Erro ao enviar email:', error);
+            } 
+        };
 
     const isSameCode =  () =>{
         if (code === checkCode){
-            setScreen(Screen.VerifyCode);
+            setScreen(Screen.NewPassword);
         }
         alert("Por favor, insira o codigo certo.");
     }
@@ -83,7 +88,7 @@ function RecoverPasswordForm(props: FormProps) {
                 return (
                     <>
                         {/* Adicione aqui a tela de verificação de código */}
-                        <Text>Verificação de Código</Text>
+                        <Text>Nova senha</Text>
                         <TextInputGroup label="Codigo" input={{ onChangeText: handleCodeChange }}/>
                         {/* <ButtonWithLoading label="Enviar Código" onPress={onRecoverPassword} /> */}
                     </>
