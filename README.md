@@ -5,7 +5,7 @@
     <a href="#o-projeto">Projeto</a> ▪️
     <a href="#proposta">Proposta</a> ▪️
     <a href="#tecnologias">Tecnologias</a> ▪️
-    <a href="#sprint-backlog">Sprints Backlog</a> ▪️
+    <a href="#backlog-do-produto">Backlog do Produto</a> ▪️
     <a href="#detalhes-das-sprints">Detalhes das Sprints</a> ▪️
     <a href="#equipe">Equipe</a>
     
