@@ -42,7 +42,7 @@ function RecoverPasswordForm(props: FormProps) {
             // console.log(formData.email)
             try {
                 const resp = await UserService.updatePasswordByEmail(formData.email, formData.newPassword);
-                alert("Senha modificada! Entre com ela");
+                alert("Senha modificada!");
                 onFinish() 
             } catch (error) {
                 console.error('Erro ao criar nova senha:', error);
