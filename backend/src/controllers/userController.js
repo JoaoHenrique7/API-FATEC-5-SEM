@@ -97,8 +97,8 @@ module.exports = {
       if (user == null) {
         return res.status(404).json({ message: 'User not found' });
       }
-      await user.remove();
-      res.json({ message: 'User deleted' });
+      await user.deleteOne();
+      return res.json({ message: 'User deleted' });
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }

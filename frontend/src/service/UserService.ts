@@ -57,7 +57,7 @@
 import axios from 'axios';
 
 // const BASE_URL = 'http://localhost:3000/users'; // rota correta antes do deploy na AWS
-const BASE_URL = 'http://192.168.0.108:3000/users'; // IP do João
+const BASE_URL = 'http://192.168.15.9:3000/users'; // IP do João
 
 const UserService = {
   fetchUsers: async (): Promise<any[]> => {
@@ -73,6 +73,16 @@ const UserService = {
   addUser: async (newUser: any): Promise<any> => {
     try {
       const response = await axios.post(`${BASE_URL}/`, newUser);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+      throw error;
+    }
+  },
+
+  updateUser: async (updatedUserData : any): Promise<any> => {
+    try {
+      const response = await axios.patch(`${BASE_URL}/${updatedUserData._id}`, updatedUserData);
       return response.data;
     } catch (error) {
       console.error('Erro ao adicionar usuário:', error);
