@@ -16,7 +16,7 @@ const styles = (theme: CurrentTheme) =>
 			backgroundColor: theme.palette.neutral[200],
 			borderWidth: 1,
 			borderColor: theme.palette.neutral[300],
-			color: theme.palette.pure.white,
+			color: theme.palette.neutral[1000],
 			borderRadius: 4,
 			padding: theme.spacing.sm,
 			height: 44,
@@ -34,7 +34,7 @@ const styles = (theme: CurrentTheme) =>
 		},
 		error: {
 			color: 'red',
-			fontSize: 12,
+			fontSize: 8,
 			fontWeight: 'bold',
 			backfaceVisibility: 'hidden'
 		},

@@ -3,6 +3,9 @@ import { CurrentTheme } from '../../contexts/ThemeContext/ThemeContext.context';
 
 const styles = (theme: CurrentTheme) =>
     StyleSheet.create({
+        container: {
+            flex: 1,
+        },
         profile: {
             flexDirection: 'row',
             alignItems: 'center',
@@ -25,6 +28,10 @@ const styles = (theme: CurrentTheme) =>
         icon: {
             color: theme.palette.neutral[200]
         },
+        itemContainer: {
+            gap: -10,
+            flex: 1
+        },
         drawerItem: {
             margin: theme.spacing.sm,
             padding: theme.spacing.md,
@@ -32,7 +39,18 @@ const styles = (theme: CurrentTheme) =>
             borderRadius: 4,
         },
         activeItem: {
-            backgroundColor: theme.palette.secondary.light + '55',
+            backgroundColor: theme.palette.secondary.main,
+        },
+        logout: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            margin: theme.spacing.sm,
+            padding: theme.spacing.md,
+            borderRadius: 4,
+        },
+        logoutContent: {
+            color: theme.palette.secondary.main
         }
 	});
 

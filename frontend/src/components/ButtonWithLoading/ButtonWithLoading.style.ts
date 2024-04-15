@@ -19,6 +19,14 @@ const styles = (theme: CurrentTheme) =>
 			borderRadius: 4,
 			height: 44,
 		},
+		containerDisabled: {
+			flexDirection: 'row',
+			justifyContent: 'center',
+			gap: theme.spacing.sm,
+			padding: 12,
+			borderRadius: 4,
+			height: 44,
+		},
 		label: {
 			fontSize: 14,
 			color: theme.palette.secondary.contrast,

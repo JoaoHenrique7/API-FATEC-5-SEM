@@ -10,27 +10,28 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import useSession from "../../contexts/SessionContext/useSession.hook";
 
 function CustomDrawer({ descriptors, navigation, state }: DrawerContentComponentProps) {
+    const { logout } = useSession();
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
     
     const { session } = useSession();
+    function onPress(e: GestureResponderEvent) { e.preventDefault(); }
 
-    function onPress(e: GestureResponderEvent) {
-        e.preventDefault();
-
-        navigation.navigate("Profile");
+    function onLogout() {
+        logout();
+        navigation.navigate('SignIn');
     }
 
     return (
-        <DrawerContentScrollView>
-            <View>
-                <Pressable onPress={(e) => onPress(e)} style={style.profile}>
-                    <View style={style.data}>
-                        <Text style={style.name}>{session.user?.nome}</Text>
-                        <Text style={style.metadata}>{session.user?.email}</Text>
-                    </View>
-                    <MaterialCommunityIcons style={style.icon} name="menu-right" size={24} />
-                </Pressable>
+        <DrawerContentScrollView contentContainerStyle={style.container}>
+            <Pressable onPress={(e) => onPress(e)} style={style.profile}>
+                <View style={style.data}>
+                    <Text style={style.name}>{session.user?.nome}</Text>
+                    <Text style={style.metadata}>{session.user?.email}</Text>
+                </View>
+                <MaterialCommunityIcons style={style.icon} name="menu-right" size={24} />
+            </Pressable>
+            <View style={style.itemContainer}>
                 {
                     state.routes.map((route, key) => {
                         const { options } = descriptors[route.key];
@@ -80,6 +81,10 @@ function CustomDrawer({ descriptors, navigation, state }: DrawerContentComponent
                     })
                 }
             </View>
+            <Pressable onPress={onLogout} style={style.logout}>
+                <MaterialCommunityIcons name="door-open" size={24} color={theme.palette.secondary.main} />
+                <Text style={style.logoutContent}>Sair</Text>
+            </Pressable>
         </DrawerContentScrollView>
     )
 }

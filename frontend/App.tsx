@@ -12,7 +12,7 @@ import DashboardScreen from './src/screens/admin/Dashboard/Dashboard.screen';
 import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 import SessionContextProvider from './src/contexts/SessionContext/SessionContext.context';
-import HomeScreen from './src/screens/protected/Home/Home.screen';
+import ManageUsers from './src/screens/admin/ManageUsers/ManageUsers.screen';
 
 
 function App(): React.JSX.Element {
@@ -25,12 +25,12 @@ function App(): React.JSX.Element {
 	const TabRoutes = useCallback(() => {
 		return (
 			<Drawer.Navigator
-				initialRouteName="Home"
+				initialRouteName="Consultores"
 				drawerContent={CustomDrawerCallback}
 				screenOptions={{ header: CustomHeaderCallback, drawerType: 'slide' }}
 			>
 				<Drawer.Screen name="Dashboard" component={DashboardScreen} />
-				<Drawer.Screen name="Home" component={HomeScreen} />
+				<Drawer.Screen name="Consultores" component={ManageUsers} />
 			</Drawer.Navigator>
 		);
 	}, [Drawer]);
@@ -45,7 +45,6 @@ function App(): React.JSX.Element {
 						<Stack.Screen name="SignUp" component={SignUpScreen} />
 						<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
 						<Stack.Screen name="TabRoutes" component={TabRoutes} />
-						<Stack.Screen name="Home" component={HomeScreen} />
 					</Stack.Navigator>
 				</NavigationContainer>
 			</ThemeContextProvider>

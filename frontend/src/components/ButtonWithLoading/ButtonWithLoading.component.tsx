@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Button,
-	GestureResponderEvent,
-	PressableProps,
-	PressableStateCallbackType,
-	StyleProp,
-	Text,
-	ViewStyle,
-} from 'react-native';
+import { GestureResponderEvent, PressableProps, PressableStateCallbackType, StyleProp, Text, ViewStyle, } from 'react-native';
 import { Pressable } from 'react-native';
 import styles from './ButtonWithLoading.style';
 import { useMemo } from 'react';
@@ -31,9 +23,10 @@ function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable,
 	const onPressWrapper = (e: GestureResponderEvent) => {
 		setLoading(true);
 
-		onPress(e);
-
-		setLoading(false);
+		setTimeout(() => {
+			onPress(e);
+			setLoading(false);
+		}, 1000);
 	};
 
 	const getStyle = () => {
@@ -53,6 +46,13 @@ function ButtonWithLoading({ label = 'Click here!', type = 'primary', pressable,
 				...style.containerPressed,
 				backgroundColor: getStyle()
 			};
+		}
+
+		if (pressable?.disabled) {
+			return {
+				...style.containerDisabled,
+				backgroundColor: theme.palette.neutral[300]
+			}
 		}
 
 		return {

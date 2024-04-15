@@ -12,16 +12,17 @@ type TextInputGroupProperties = {
 	error?: string;
 	label: string;
 	icon?: string;
+	forwardRef?: React.LegacyRef<TextInput>
 };
 
-function TextInputGroup({ input, label, error, onChangeText }: TextInputGroupProperties) {
+function TextInputGroup({ input, label, error, onChangeText, forwardRef }: TextInputGroupProperties) {
 	const { theme }: ThemeContextType = useTheme();
 	const style = useMemo(() => styles(theme), [theme]);
 
 	return (
 		<View style={style.container}>
 			<Text style={style.label}>{label}</Text>
-			<TextInput style={style.input} onChangeText={(text: string) => onChangeText(text)} {...input} />
+			<TextInput ref={forwardRef} style={style.input} onChangeText={(text: string) => onChangeText(text)} {...input} />
 			<Text style={error ? style.error : { ...style.error, ...style.errorActive }}>{error}</Text>
 		</View>
 	);

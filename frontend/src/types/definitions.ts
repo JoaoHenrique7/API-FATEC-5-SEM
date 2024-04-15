@@ -12,7 +12,7 @@ export type HTTPError = {
  * --- --- --- --- --- --- --- --- --- ---
  */
 export type User = {
-    id: string;
+    _id: string;
     nome: string;
     email: string;
     senha: string;

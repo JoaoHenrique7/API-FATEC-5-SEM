@@ -27,9 +27,9 @@ function SignUpForm(props: FormProps) {
     return (
         <View style={style.container}>
             <Text>Preencha com seus dados completos:</Text>
-            <TextInputGroup label="Nome completo" />
-            <TextInputGroup label="Email" />
-            <TextInputGroup label="Senha" input={{ secureTextEntry: true }} />
+            <TextInputGroup label="Nome completo" onChangeText={() => ""} />
+            <TextInputGroup label="Email" onChangeText={() => ""} />
+            <TextInputGroup label="Senha" input={{ secureTextEntry: true }} onChangeText={() => ""} />
             <ButtonWithLoading label="Cadastrar" onPress={onSignUp} />
             <Text>
                 Já possui uma conta? <Link to={"/SignIn"} style={style.link}>Entre agora mesmo.</Link>
