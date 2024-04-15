@@ -86,6 +86,7 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
             <View style={style.datalist}>
                 {
                     users.map((user: User, key: number) => {
+                        if (user.tipo === "0") return;
                         return (
                             <View key={key} style={style.item}>
                                 <View style={style.itemData}>
