@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../types/definitions";
 
-const IP = '192.168.15.68'
+const IP = '192.168.251.87'
 const BASE_URL = `http://${IP}:3000`;
 
 const AuthService = {

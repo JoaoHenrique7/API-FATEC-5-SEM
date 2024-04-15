@@ -30,6 +30,9 @@ const styles = (theme: CurrentTheme) =>
             shadowRadius: 1.41,
             elevation: 2,
         },
+        heading: {
+            fontWeight: 'bold'
+        }
 	});
 
 export default styles;

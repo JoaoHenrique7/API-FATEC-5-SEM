@@ -3,14 +3,7 @@ import uuid from 'uuid-random';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-native'
 import UserService from '../../service/UserService';
 import { Ionicons } from '@expo/vector-icons';
-
-interface User {
-    _id: string;
-    nome: string;
-    email: string;
-    senha: string;
-    tipo: string;
-}
+import { User } from '../../types/definitions';
 
 interface Props {
     modalTitle: string,
@@ -49,7 +42,7 @@ const EditUserModal: React.FC<Props> = ({ visible, user, closeModal, modalTitle,
             nome: newUserName!,
             email: newUserEmail!,
             senha: newUserPass!,
-            tipo: newUserType!,
+            tipo: '1',
         };
 
 
@@ -129,16 +122,6 @@ const EditUserModal: React.FC<Props> = ({ visible, user, closeModal, modalTitle,
                             <Ionicons name={secureTextEntry ? 'eye-off' : 'eye'} size={24} color="black" />
                         </TouchableOpacity>
                     </View>
-
-
-                    {!isEdition && (<Text style={styles.label}>Tipo</Text>)}
-                    {!isEdition && (
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Tipo do usuário"
-                        value={newUserType}
-                        onChangeText={handleTypeChange}
-                    />)}
 
                     <View style={styles.containerBtn} >
                         <TouchableOpacity style={styles.closeBtn} onPress={closeModal}>
