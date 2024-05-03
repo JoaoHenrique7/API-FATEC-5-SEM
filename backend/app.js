@@ -18,6 +18,7 @@ app.use('/teams', routes.team)
 app.use('/users', routes.user)
 app.use('/certificates', routes.certificate)
 app.use('/expertises', routes.expertise)
+app.use('/baseCertificate', routes.baseCertificate)
 
 // iniciando o servidor
 app.listen(port, () => {
