@@ -13,6 +13,7 @@ import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 import SessionContextProvider from './src/contexts/SessionContext/SessionContext.context';
 import ManageUsers from './src/screens/admin/ManageUsers/ManageUsers.screen';
+import PartnersScreen from './src/screens/admin/Partners/Partners.screen';
 
 
 function App(): React.JSX.Element {
@@ -31,6 +32,7 @@ function App(): React.JSX.Element {
 			>
 				<Drawer.Screen name="Dashboard" component={DashboardScreen} />
 				<Drawer.Screen name="Consultores" component={ManageUsers} />
+				<Drawer.Screen name="Parceiros" component={PartnersScreen} />
 			</Drawer.Navigator>
 		);
 	}, [Drawer]);

@@ -18,3 +18,12 @@ export type User = {
     senha: string;
     tipo: string;
 }
+
+export type Partner = {
+    _id: string;
+    nome: string;
+    email: string;
+    cpfcnpj: string;
+    tipo: string;
+    expertise: string;
+}
