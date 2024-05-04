@@ -14,7 +14,7 @@ const password = process.env.MONGO_PASS
 const db_connection = process.env.MONGO_BYTECH_CONNECTION
 
 // rotas
-app.use('/teams', routes.team)
+app.use('/partners', routes.partner)
 app.use('/users', routes.user)
 app.use('/certificates', routes.certificate)
 app.use('/expertises', routes.expertise)
