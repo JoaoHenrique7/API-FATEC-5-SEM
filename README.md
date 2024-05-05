@@ -93,7 +93,29 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 
    <br>
 </details>
+<br>
 
+<h2>Sprint 2</h2>
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+![Equipe bytech](/readme/backlogSprint2.png)
+
+   <br>
+
+ <h3 align="center">Critérios de aceitação</h3>
+
+![Equipe bytech](/readme/criterioAceitacaoSprint2.png)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint1.png)
+
+   <br>
+</details>
 <br>
 
 <h1 align="center"><samp>EQUIPE</samp></h1>
