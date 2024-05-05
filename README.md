@@ -112,7 +112,7 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 
    <h3 align="center">Burndown</h3>
 
-![Equipe bytech](/readme/burndownSprint1.png)
+![Equipe bytech](/readme/burndownSprint2.png)
 
    <br>
 </details>
