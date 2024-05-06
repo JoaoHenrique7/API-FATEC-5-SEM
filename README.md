@@ -95,22 +95,31 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 
 <h3 align="center">Login como Administrador.</h3>
 
-![Equipe bytech](/readme/loginAdministrador.gif)
-<a href="https://youtube.com/shorts/QfVdLAiZrwI">Link para uma melhor resolução</a>
+<p align="center">
+    <img src="/readme/loginAdministrador.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/QfVdLAiZrwI">Link para uma melhor resolução</a>
+</p>
 
    <br>
 
  <h3 align="center">Editar o perfil consultor de alianças.</h3>
 
-![Equipe bytech](/readme/editarConsultorAliancas.gif)
-<a href="https://youtube.com/shorts/k-mWljAZT0U">Link para uma melhor resolução</a>
+ <p align="center">
+    <img src="/readme/editarConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/k-mWljAZT0U">Link para uma melhor resolução</a>
+</p>
 
    <br>
 
    <h3 align="center">Adicionar consultor de alianças.</h3>
 
-![Equipe bytech](/readme/adicionarConsultorAliancas.gif)
-<a href="https://youtube.com/shorts/jaJvUHtxoDg">Link para uma melhor resolução</a>
+ <p align="center">
+    <img src="/readme/adicionarConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/jaJvUHtxoDg">Link para uma melhor resolução</a>
+</p>
 
    <br>
 </details>
