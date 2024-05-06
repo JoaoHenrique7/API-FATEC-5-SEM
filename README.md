@@ -75,7 +75,7 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 <h2>Sprint 1</h2>
 <details>
   <summary>Detalhes</summary>
-  <h3 align="center">Backlog da Sprint</h3>
+<h3 align="center">Backlog da Sprint</h3>
 
 ![Equipe bytech](/readme/backlogSprint1.png)
 
@@ -90,6 +90,27 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
    <h3 align="center">Burndown</h3>
 
 ![Equipe bytech](/readme/burndownSprint1.png)
+
+   <br>
+
+<h3 align="center">Login como Administrador.</h3>
+
+![Equipe bytech](/readme/loginAdministrador.gif)
+<a href="https://youtube.com/shorts/QfVdLAiZrwI">Link para uma melhor resolução</a>
+
+   <br>
+
+ <h3 align="center">Editar o perfil consultor de alianças.</h3>
+
+![Equipe bytech](/readme/editarConsultorAliancas.gif)
+<a href="https://youtube.com/shorts/k-mWljAZT0U">Link para uma melhor resolução</a>
+
+   <br>
+
+   <h3 align="center">Adicionar consultor de alianças.</h3>
+
+![Equipe bytech](/readme/adicionarConsultorAliancas.gif)
+<a href="https://youtube.com/shorts/jaJvUHtxoDg">Link para uma melhor resolução</a>
 
    <br>
 </details>
