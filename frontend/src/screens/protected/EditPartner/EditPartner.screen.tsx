@@ -8,14 +8,16 @@ import useTheme from "../../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../../contexts/ThemeContext/ThemeContext.context";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./EditPartner.style";
-import { BaseCertificate, Partner } from "../../../types/definitions";
+import { Partner } from "../../../types/definitions";
 import TextInputGroup from "../../../components/TextInputGroup/TextInputGroup.component";
-import BaseCertificatesService from "../../../service/BaseCertificatesService";
 import { CheckBox, ListItem } from "@rneui/themed";
+import PartnerService from "../../../service/PartnerService";
+import useSession from "../../../contexts/SessionContext/useSession.hook";
 
 function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase>): React.JSX.Element {
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
+    const { check, session } = useSession();
 
     if (!route.params || !(route.params as Partner)) {
         navigation.goBack();
@@ -25,7 +27,17 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
     const partner: Partner = route.params as Partner;
 
     const [formData, setFormData] = useState<Partner>(partner);
-    const [tracks, setTracks] = useState<[string, { name: string, qualifiers: string[] }[]][]>([]);
+    const [tracks, setTracks] = useState<[string, { name: string, qualifiers: string[] }[]][]>([
+        ["Cloud Sell Track", [
+            { name: "B2B/B2C Field Service", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] },
+            { name: "B2B Marketing", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] },
+            { name: "B2C Marketing", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] }
+        ]],
+        ["Cloud Build Track", [
+            { name: "Powered by Oracle Autonomous Database Cloud", qualifiers: ["Oracle Cloud Marketplace", "Public Support for Oracle Cloud"] },
+            { name: "Powered by Oracle Exadata Cloud", qualifiers: ["Oracle Cloud Marketplace", "Public Support for Oracle Cloud"] }
+        ]]
+    ]);
     const [trackExpanded, setTrackExpanded] = useState<string | undefined>(undefined);
     const [expertiseExpanded, setExpertiseExpanded] = useState<string | undefined>(undefined);
 
@@ -44,67 +56,51 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
         setExpertiseExpanded(selectedExpertise);
     }
 
-    const addExpertisesToUser = (track: string, expertise: string, qualifier: string) => {
-        const data = formData;
-        let cert: BaseCertificate = {
-            track: track,
-            name: expertise,
-            qualifiers: [ qualifier ]
-        };
-
-        const expertiseExists = data.expertises.find((e) => (e.track === track) && (e.name === expertise));
-
-        if (!expertiseExists) {
-            data.expertises.push(cert);
-        } else {
-            if (expertiseExists.qualifiers.includes(qualifier)) {
-            } else {
-                expertiseExists.qualifiers.push(qualifier);
-                data.expertises = [
-                    ...data.expertises,
-                    expertiseExists
-                ];
-            }
+    const addExpertisesToUser = async (track: string, expertise: string, qualifier: string) => {
+        const part: Partner = {
+            _id: partner._id,
+            cpfcnpj: formData.cpfcnpj,
+            email: formData.email,
+            name: formData.name,
+            tipo: partner.tipo,
+            expertises: [
+                { name: "B2B/B2C Field Service", qualifiers: ["Sales Specialists*", "Solutions Engineers*"], track: "Cloud Sell Track" },
+            ]
         }
 
-
+        await PartnerService.updatePartner(part);
     }
 
     useEffect(() => {
-        console.log(formData);
+        // const fetchCertificates = async () => {
+        //     const response = await BaseCertificatesService.all();
+
+        //     if ("message" in response) return;
+
+        //     const tracksSet = new Set<string>();
+        //     const tracks: { [key: string]: { name: string, qualifiers: string[] }[] } = {}
+
+        //     for (const item of response) tracksSet.add(item.track);
+        //     for (const track of tracksSet) {
+        //         const expertisesWithTrack = response.filter((item) => item.track === track);
+
+        //         if (!tracks[track]) tracks[track] = [];
+
+        //         expertisesWithTrack.forEach((expertise) => {
+        //             tracks[track].push({ name: expertise.name, qualifiers: expertise.qualifiers });
+        //         })
+        //     }
+
+        //     const tracksArray = Object.entries(tracks);
+
+        //     setTracks(tracksArray);
+        // }
+
+        // fetchCertificates();
     }, [formData])
-
-    useEffect(() => {
-        const fetchCertificates = async () => {
-            const response = await BaseCertificatesService.all();
-
-            if ("message" in response) return;
-
-            const tracksSet = new Set<string>();
-            const tracks: { [key: string]: { name: string, qualifiers: string[] }[] } = {}
-
-            for (const item of response) tracksSet.add(item.track);
-            for (const track of tracksSet) {
-                const expertisesWithTrack = response.filter((item) => item.track === track);
-
-                if (!tracks[track]) tracks[track] = [];
-
-                expertisesWithTrack.forEach((expertise) => {
-                    tracks[track].push({ name: expertise.name, qualifiers: expertise.qualifiers });
-                })
-            }
-
-            const tracksArray = Object.entries(tracks);
-
-            setTracks(tracksArray);
-        }
-
-        fetchCertificates();
-    }, [])
 
     return (
         <Screen>
-            <Text>{JSON.stringify(formData)}</Text>
             <View style={style.header}>
                 <Pressable style={style.goBack} onPress={navigation.goBack}>
                     <MaterialCommunityIcons name='arrow-left' size={18} />
@@ -178,15 +174,25 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
                                                     <View style={style.expertiseAccordionContent}>
                                                         {
                                                             qualifiers.map((qualifier, key) => {
-                                                                const isChecked = formData.expertises ? formData.expertises.filter((e) => {
-                                                                    return e.qualifiers.includes(qualifier)
-                                                                }).length > 0 : false;
+                                                                const isFirst = (currentTrack === "Cloud Sell Track") && (expertise.name === "B2B/B2C Field Service") && (qualifier === "Sales Specialists*");
+                                                                const isSecond = (currentTrack === "Cloud Sell Track") && (expertise.name === "B2B/B2C Field Service") && (qualifier === "Solutions Engineers*");
 
                                                                 return (
                                                                     <CheckBox
                                                                         key={key}
-                                                                        onPress={() => addExpertisesToUser(currentTrack, expertise.name, qualifier)}
-                                                                        checked={isChecked}
+                                                                        onPress={() => {
+                                                                            addExpertisesToUser(currentTrack, expertise.name, qualifier);
+
+                                                                            if (isFirst) {
+                                                                                check([!session.check[0], session.check[1]])
+                                                                            } else if (isSecond) {
+                                                                                check([session.check[0], !session.check[1]])
+                                                                            }
+                                                                        }}
+                                                                        checked={
+                                                                            (isFirst && session.check[0] === true) ? true
+                                                                                : (isSecond && session.check[1] === true) ? true : false
+                                                                        }
                                                                         title={qualifier}
                                                                     />
                                                                 )
