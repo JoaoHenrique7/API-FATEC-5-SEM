@@ -39,7 +39,11 @@ function SignInForm(props: FormProps) {
         emailRef.current?.clear();
         passwordRef.current?.clear();
 
-        navigation.replace('TabRoutes');
+        if (response.tipo === "0") {
+            navigation.replace('AdminTabRoutes');
+        } else {
+            navigation.replace('UserTabRoutes');
+        }
     }
 
     return (

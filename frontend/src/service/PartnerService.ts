@@ -1,44 +1,43 @@
 import axios from 'axios';
 
-// const BASE_URL = 'http://localhost:3000/users'; // rota correta antes do deploy na AWS
-const BASE_URL = 'http://192.168.15.68:3000/users'; // IP do João
+const BASE_URL = 'http://192.168.15.68:3000/partners';
 
-const UserService = {
-  fetchUsers: async (): Promise<any[]> => {
+const PartnerService = {
+  fetchPartners: async (): Promise<any[]> => {
     try {
       const response = await axios.get(BASE_URL);
       return response.data;
     } catch (error) {
-      console.error('Erro ao obter usuários:', error);
+      console.error('Erro ao obter parceiros:', error);
       throw error;
     }
   },
 
-  addUser: async (newUser: any): Promise<any> => {
+  addPartner: async (newPartner: any): Promise<any> => {
     try {
-      const response = await axios.post(`${BASE_URL}/`, newUser);
+      const response = await axios.post(`${BASE_URL}/`, newPartner);
       return response.data;
     } catch (error) {
-      console.error('Erro ao adicionar usuário:', error);
+      console.error('Erro ao adicionar parceiro:', error);
       throw error;
     }
   },
 
-  updateUser: async (updatedUserData : any): Promise<any> => {
+  updatePartner: async (updatedPartnerData : any): Promise<any> => {
     try {
-      const response = await axios.patch(`${BASE_URL}/${updatedUserData._id}`, updatedUserData);
+      const response = await axios.patch(`${BASE_URL}/${updatedPartnerData._id}`, updatedPartnerData);
       return response.data;
     } catch (error) {
-      console.error('Erro ao adicionar usuário:', error);
+      console.error('Erro ao adicionar parceiro:', error);
       throw error;
     }
   },
 
-  deleteUser: async (id: string): Promise<void> => {
+  deletePartner: async (id: string): Promise<void> => {
     try {
       await axios.delete(`${BASE_URL}/${id}`);
     } catch (error) {
-      console.error('Erro ao excluir usuário:', error);
+      console.error('Erro ao excluir parceiro:', error);
       throw error;
     }
   },
@@ -72,4 +71,4 @@ const UserService = {
   }
 };
 
-export default UserService;
+export default PartnerService;

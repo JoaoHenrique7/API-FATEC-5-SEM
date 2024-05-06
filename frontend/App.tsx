@@ -13,7 +13,8 @@ import CustomDrawer from './src/components/CustomDrawer/CustomDrawer.component';
 import RecoverPasswordScreen from './src/screens/auth/RecoverPassword/RecoverPassword.screen';
 import SessionContextProvider from './src/contexts/SessionContext/SessionContext.context';
 import ManageUsers from './src/screens/admin/ManageUsers/ManageUsers.screen';
-
+import PartnersScreen from './src/screens/protected/Partners/Partners.screen';
+import EditPartnerScreen from './src/screens/protected/EditPartner/EditPartner.screen';
 
 function App(): React.JSX.Element {
 	const Drawer = createDrawerNavigator();
@@ -22,7 +23,7 @@ function App(): React.JSX.Element {
 	const CustomHeaderCallback = useCallback((props: DrawerHeaderProps) => <CustomHeader {...props} />, []);
 	const CustomDrawerCallback = useCallback((props: DrawerContentComponentProps) => <CustomDrawer {...props} />, []);
 
-	const TabRoutes = useCallback(() => {
+	const AdminTabRoutes = useCallback(() => {
 		return (
 			<Drawer.Navigator
 				initialRouteName="Consultores"
@@ -35,6 +36,19 @@ function App(): React.JSX.Element {
 		);
 	}, [Drawer]);
 
+	const UserTabRoutes = useCallback(() => {
+		return (
+			<Drawer.Navigator
+			initialRouteName="Dashboard"
+				drawerContent={CustomDrawerCallback}
+				screenOptions={{ header: CustomHeaderCallback, drawerType: 'slide' }}
+			>
+				<Drawer.Screen name="Dashboard" component={DashboardScreen} />
+				<Drawer.Screen name="Parceiros" component={PartnersScreen} />
+			</Drawer.Navigator>
+		)
+	}, [Drawer]);
+
 	return (
 		<SessionContextProvider>
 			<ThemeContextProvider>
@@ -44,7 +58,11 @@ function App(): React.JSX.Element {
 						<Stack.Screen name="SignIn" component={SignInScreen} />
 						<Stack.Screen name="SignUp" component={SignUpScreen} />
 						<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
-						<Stack.Screen name="TabRoutes" component={TabRoutes} />
+						<Stack.Screen name="AdminTabRoutes" component={AdminTabRoutes} />
+						<Stack.Screen name="UserTabRoutes" component={UserTabRoutes} />
+						<Stack.Group screenOptions={{ presentation: 'modal' }}>
+							<Stack.Screen name='EditPartner' component={EditPartnerScreen} />
+						</Stack.Group>
 					</Stack.Navigator>
 				</NavigationContainer>
 			</ThemeContextProvider>

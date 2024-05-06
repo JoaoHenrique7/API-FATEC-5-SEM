@@ -1,89 +1,86 @@
 import React, { useState } from 'react';
 import uuid from 'uuid-random';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-native'
-import UserService from '../../service/UserService';
+import PartnerService from '../../service/PartnerService';
 import { Ionicons } from '@expo/vector-icons';
-import { User } from '../../types/definitions';
+import { Partner } from '../../types/definitions';
 
 interface Props {
     modalTitle: string,
     isEdition: boolean,
-    user: User | null;
+    partner: Partner | null;
     visible: boolean;
     closeModal: () => void;
 }
 
-const EditUserModal: React.FC<Props> = ({ visible, user, closeModal, modalTitle, isEdition }) => {
-    const [newUserName, setNewUserName] = useState(user?.nome);
-    const [newUserEmail, setNewUserEmail] = useState(user?.email);
-    const [newUserPass, setNewUserPass] = useState(user?.senha);
-    const [newUserType, setNewUserType] = useState(user?.tipo);
-    const [secureTextEntry, setSecureTextEntry] = useState(true);
+const EditPartnerModal: React.FC<Props> = ({ visible, partner, closeModal, modalTitle, isEdition }) => {
+    const [newPartnerName, setNewPartnerName] = useState(partner?.nome);
+    const [newPartnerEmail, setNewPartnerEmail] = useState(partner?.email);
+    const [newPartnerCpfCnpj, setNewPartnerCpfCnpj] = useState(partner?.cpfcnpj);
+    const [newPartnerType, setNewPartnerType] = useState(partner?.tipo);
+    // const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const handleNameChange = (text: string) => {
-        setNewUserName(text);
+        setNewPartnerName(text);
     };
 
     const handleEmailChange = (text: string) => {
-        setNewUserEmail(text);
+        setNewPartnerEmail(text);
     };
 
-    const handlePassChange = (text: string) => {
-        setNewUserPass(text);
+    const handleCpfCnpjChange = (text: string) => {
+        setNewPartnerCpfCnpj(text);
     };
 
     const handleTypeChange = (text: string) => {
-        setNewUserType(text);
+        setNewPartnerType(text);
     };
 
-    const addUser = async () => {
-        const newUser: User = {
+    const addPartner = async () => {
+        const newPartner: Partner = {
             _id: uuid(),
-            nome: newUserName!,
-            email: newUserEmail!,
-            senha: newUserPass!,
+            nome: newPartnerName!,
+            email: newPartnerEmail!,
+            cpfcnpj: newPartnerCpfCnpj!,
             tipo: '1',
+            expertise: ''
         };
 
 
         try {
-            if (newUser.nome == undefined || newUser.email == undefined || newUser.senha == undefined || newUser.tipo == undefined){
+            if (newPartner.nome == undefined || newPartner.email == undefined || newPartner.cpfcnpj == undefined || newPartner.tipo == undefined){
                 return Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
             } else {
-                const data = await UserService.addUser(newUser);
-                setNewUserName(''); // Limpa o campo de entrada
-                setNewUserEmail(''); // Limpa o campo de entrada
-                setNewUserPass(''); // Limpa o campo de entrada
-                setNewUserType(''); // Limpa o campo de entrada
+                const data = await PartnerService.addPartner(newPartner);
+                setNewPartnerName(''); // Limpa o campo de entrada
+                setNewPartnerEmail(''); // Limpa o campo de entrada
+                setNewPartnerCpfCnpj(''); // Limpa o campo de entrada
+                setNewPartnerType(''); // Limpa o campo de entrada
     
                 Alert.alert('Gestor de Parceiros', 'Consultor de aliança adicionado com sucesso!', [
                     {text: 'OK', onPress:closeModal},
                 ]);
             }    
         } catch (error) {
-            console.error('Erro ao adicionar usuário:', error);
+            console.error('Erro ao adicionar parceiro:', error);
             Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
         }
     };
 
-    const editUser = async () => {
+    const editPartner = async () => {
 
-        user!.nome = newUserName!;
-        user!.email = newUserEmail!;
-        user!.senha = newUserPass!;
+        partner!.nome = newPartnerName!;
+        partner!.email = newPartnerEmail!;
+        partner!.cpfcnpj = newPartnerCpfCnpj!;
         try {
-            await UserService.updateUser(user);
+            await PartnerService.updatePartner(partner);
             Alert.alert('Gestor de Parceiros', 'As informações foram atualizadas com sucesso!', [
                 {text: 'OK', onPress:closeModal},
             ]);
 
         } catch (error) {
-            console.error('Erro ao atualizar o usuário:', error);
+            console.error('Erro ao atualizar o parceiro:', error);
         }
-    };
-
-    const toggleSecureEntry = () => {
-        setSecureTextEntry(!secureTextEntry);
     };
 
     return (
@@ -95,38 +92,34 @@ const EditUserModal: React.FC<Props> = ({ visible, user, closeModal, modalTitle,
                     <Text style={styles.label}>Nome</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Nome do usuário"
-                        value={newUserName}
+                        placeholder="Nome do parceiro"
+                        value={newPartnerName}
                         onChangeText={handleNameChange}
                     />
 
                     <Text style={styles.label}>Email</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Email do usuário"
-                        value={newUserEmail}
+                        placeholder="Email do parceiro"
+                        value={newPartnerEmail}
                         onChangeText={handleEmailChange}
                     />
 
-                    <Text style={styles.label}>Senha</Text>
+                    <Text style={styles.label}>CPF/CNPJ</Text>
                     <View style={{ display: 'flex' }}>
                         <TextInput
-                            secureTextEntry={secureTextEntry}
                             style={styles.input}
-                            placeholder="Senha do usuário"
-                            value={newUserPass}
-                            onChangeText={handlePassChange}
+                            placeholder="CPF/CNPJ"
+                            value={newPartnerCpfCnpj}
+                            onChangeText={handleCpfCnpjChange}
                         />
-                         <TouchableOpacity onPress={toggleSecureEntry}>
-                            <Ionicons name={secureTextEntry ? 'eye-off' : 'eye'} size={24} color="black" />
-                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.containerBtn} >
                         <TouchableOpacity style={styles.closeBtn} onPress={closeModal}>
                             <Text style={{ color: '#fff' }}>Fechar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.saveBtn} onPress={isEdition ? editUser : addUser}>
+                        <TouchableOpacity style={styles.saveBtn} onPress={isEdition ? editPartner : addPartner}>
                             <Text style={{ color: '#fff' }}>{isEdition ? 'Atualizar' : 'Salvar'}</Text>
                         </TouchableOpacity>
                     </View>
@@ -214,4 +207,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default EditUserModal
+export default EditPartnerModal
