@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://192.168.15.2:3000/partners';
+const BASE_URL = 'http://192.168.15.68:3000/partners';
 
 const PartnerService = {
   fetchPartners: async (): Promise<any[]> => {
@@ -16,7 +16,6 @@ const PartnerService = {
   addPartner: async (newPartner: any): Promise<any> => {
     try {
       const response = await axios.post(`${BASE_URL}/`, newPartner);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error('Erro ao adicionar parceiro:', error);

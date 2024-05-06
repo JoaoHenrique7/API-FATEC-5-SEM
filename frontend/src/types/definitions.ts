@@ -21,9 +21,15 @@ export type User = {
 
 export type Partner = {
     _id: string;
-    nome: string;
+    name: string;
     email: string;
     cpfcnpj: string;
     tipo: string;
-    expertise: string;
+    expertises: BaseCertificate[];
+}
+
+export type BaseCertificate = {
+    name: string;
+    track: string;
+    qualifiers: string[];
 }

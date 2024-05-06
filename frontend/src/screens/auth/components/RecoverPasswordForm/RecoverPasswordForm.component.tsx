@@ -39,7 +39,6 @@ function RecoverPasswordForm(props: FormProps) {
 
     const createNewPassword = async () => {
         if (formData.newPassword === formData.newPasswordConfire){
-            // console.log(formData.email)
             try {
                 const resp = await UserService.updatePasswordByEmail(formData.email, formData.newPassword);
                 alert("Senha modificada!");
@@ -84,7 +83,6 @@ function RecoverPasswordForm(props: FormProps) {
     };
 
     const isSameCode =  () =>{
-        // console.log(checkCode)
         if (formData.code === String(checkCode)){
             setScreen(Screen.NewPassword);
         }else{

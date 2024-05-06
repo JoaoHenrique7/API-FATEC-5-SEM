@@ -48,7 +48,6 @@ const EditPartnerModal: React.FC<Props> = ({ visible, partner, closeModal, modal
 
 
         try {
-            console.log(newPartner.nome)
             if (newPartner.nome == undefined || newPartner.email == undefined || newPartner.cpfcnpj == undefined || newPartner.tipo == undefined){
                 return Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
             } else {

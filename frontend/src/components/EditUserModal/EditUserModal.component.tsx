@@ -47,7 +47,6 @@ const EditUserModal: React.FC<Props> = ({ visible, user, closeModal, modalTitle,
 
 
         try {
-            console.log(newUser.nome)
             if (newUser.nome == undefined || newUser.email == undefined || newUser.senha == undefined || newUser.tipo == undefined){
                 return Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
             } else {
