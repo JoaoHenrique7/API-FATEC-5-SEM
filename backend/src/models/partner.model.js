@@ -5,10 +5,8 @@ const partnerSchema = new mongoose.Schema({
     cpfcnpj: String,
     email: String,
     tipo: String,
-    expertises: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Expertise'
-    }]
+    expertises: [],
+    createAt: String
     
 });
 

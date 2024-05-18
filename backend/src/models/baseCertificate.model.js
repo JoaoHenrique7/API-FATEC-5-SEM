@@ -9,7 +9,8 @@ const baseCertificateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  qualifiers: []
+  qualifiers: [],
+  createAt: String
 });
 
 const baseCertificate = mongoose.model('baseCertificate', baseCertificateSchema);

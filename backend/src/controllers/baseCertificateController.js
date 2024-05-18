@@ -5,10 +5,16 @@ module.exports = {
   // Rota para criar um baseCertificate
   createBaseCertificate: async (req, res) => {
     try {
+      // data atual do brasil
+      const now = new Date();
+      const brazilOffset = -3;
+      const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+      const DateTime = new Date(utcTime + 3600000 * brazilOffset);
       const newbaseCertificate = new baseCertificate({
         name: req.body.name,
         track: req.body.track,
-        qualifiers: req.body.qualifiers
+        qualifiers: req.body.qualifiers,
+        createAt: DateTime
       });
       await newbaseCertificate.save();
       res.status(201).json(newbaseCertificate);
