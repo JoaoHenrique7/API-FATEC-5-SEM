@@ -4,6 +4,7 @@ import ButtonWithLoading from "../../../components/ButtonWithLoading/ButtonWithL
 import { StackScreenProps } from "@react-navigation/stack";
 import Screen from "../../../components/Screen/Screen.component";
 import useSession from "../../../contexts/SessionContext/useSession.hook";
+import DashboardComponent from "../components/dashboardComponents/dashboard.component";
 
 function DashboardScreen({ navigation }: StackScreenProps<ParamListBase>): React.JSX.Element {
     const { logout } = useSession();
@@ -18,7 +19,8 @@ function DashboardScreen({ navigation }: StackScreenProps<ParamListBase>): React
     return (
         <Screen>
             <Text>Dashboard</Text>
-            <ButtonWithLoading onPress={(e) => onPress(e)} label="Sair" />
+            {/* <ButtonWithLoading onPress={(e) => onPress(e)} label="Sair" /> */}
+            <DashboardComponent />
         </Screen>
     )
 }
