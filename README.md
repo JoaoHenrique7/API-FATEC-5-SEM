@@ -145,6 +145,38 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 ![Equipe bytech](/readme/burndownSprint2.png)
 
    <br>
+
+   <h3 align="center">Login como Consultor de Alianças.</h3>
+
+<p align="center">
+    <img src="/readme/loginConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/GcA-2Alec6g?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+   <h3 align="center">Adicionar parceiro.</h3>
+
+<p align="center">
+    <img src="/readme/adicionarParceiro.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/wMTgTlr982w?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+<h3 align="center">Adicionar Track e Expertise do parceiro.</h3>
+
+<p align="center">
+    <img src="/readme/adicionarTrackExpertise.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/E7BV9YUvAck?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+
 </details>
 <br>
 
