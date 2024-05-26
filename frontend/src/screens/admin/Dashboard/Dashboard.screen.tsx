@@ -18,7 +18,7 @@ function DashboardScreen({ navigation }: StackScreenProps<ParamListBase>): React
     
     return (
         <Screen>
-            <Text>Dashboard</Text>
+            {/* <Text>Dashboard</Text> */}
             {/* <ButtonWithLoading onPress={(e) => onPress(e)} label="Sair" /> */}
             <DashboardComponent />
         </Screen>

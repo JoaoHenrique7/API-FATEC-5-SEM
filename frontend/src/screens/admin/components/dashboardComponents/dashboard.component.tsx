@@ -120,19 +120,19 @@ const DashboardScreen: React.FC = () => {
         absolute
         style={styles.chart}
       />
-      <BarChart
+      {/* <BarChart
         data={dataBar}
-        width={Dimensions.get('window').width} // Adapt to screen width
+        width={Dimensions.get('window').width}
         height={220}
         yAxisLabel="Sales"
         yAxisSuffix="$"
-        yAxisInterval={1} // Optional, adjust interval as needed
+        yAxisInterval={1} 
         chartConfig={chartConfig}
         style={{
           marginVertical: 8,
           borderRadius: 16,
         }}
-      />
+      /> */}
     </ScrollView>
   );
 };
