@@ -173,10 +173,50 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
     <br>
     <a href="https://youtube.com/shorts/E7BV9YUvAck?feature=share">Link para uma melhor resolução</a>
 </p>
+   <br>
+</details>
+<br>
+
+<h2>Sprint 3</h2>
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+![Equipe bytech](/readme/backlogSprint3.png)
 
    <br>
 
+ <h3 align="center">Critérios de aceitação</h3>
 
+![Equipe bytech](/readme/criterioAceitacaoSprint3.png)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint3.png)
+
+   <br>
+
+   <h3 align="center">Dashboard</h3>
+
+<p align="center">
+    <img src="/readme/dashboard.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/b0w74Q6awr8?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+   <h3 align="center">Filtro nas listagens de consultor de alinaças e parceiros</h3>
+
+<p align="center">
+    <img src="/readme/filter.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/jpSuLVgs6Mg?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
 </details>
 <br>
 
