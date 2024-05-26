@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://192.168.15.68:3000/partners';
+const BASE_URL = 'http://192.168.138.87:3000/partners';
 
 const PartnerService = {
   fetchPartners: async (): Promise<any[]> => {

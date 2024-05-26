@@ -80,7 +80,7 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
                                     <Text style={style.subData} numberOfLines={1}>{partner.email}</Text>
                                 </View>
                                 <View style={style.itemActions}>
-                                    <Pressable style={style.edit} onPress={() => navigation.navigate('EditPartner', partner)}>
+                                    <Pressable style={style.edit} onPress={() => navigation.replace('EditPartner', partner)}>
                                         <MaterialCommunityIcons name='pencil' size={24} />
                                     </Pressable>
                                     <Pressable style={style.delete} onPress={() => Alert.alert('Gestor de Parceiros', 'Deseja excluir este parceiro?', [{text: 'Não', onPress: () => console.log('Cancel pressed')}, {text: 'Sim', onPress: () => deletePartner(partner._id)}])}>

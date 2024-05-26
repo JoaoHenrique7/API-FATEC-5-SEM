@@ -13,6 +13,7 @@ import TextInputGroup from "../../../components/TextInputGroup/TextInputGroup.co
 import { CheckBox, ListItem } from "@rneui/themed";
 import PartnerService from "../../../service/PartnerService";
 import useSession from "../../../contexts/SessionContext/useSession.hook";
+import ButtonWithLoading from "../../../components/ButtonWithLoading/ButtonWithLoading.component";
 
 function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase>): React.JSX.Element {
     const { theme }: ThemeContextType = useTheme();
@@ -20,7 +21,7 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
     const { check, session } = useSession();
 
     if (!route.params || !(route.params as Partner)) {
-        navigation.goBack();
+        navigation.replace("Parceiros");
         return <></>;
     }
 
@@ -57,11 +58,11 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
     }
 
     const addExpertisesToUser = async (track: string, expertise: string, qualifier: string) => {
-        const part: Partner = {
+        const part: Omit<Partner, "name"> & { nome: string } = {
             _id: partner._id,
             cpfcnpj: formData.cpfcnpj,
             email: formData.email,
-            name: formData.name,
+            nome: formData.name,
             tipo: partner.tipo,
             expertises: [
                 { name: "B2B/B2C Field Service", qualifiers: ["Sales Specialists*", "Solutions Engineers*"], track: "Cloud Sell Track" },
@@ -97,12 +98,13 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
         // }
 
         // fetchCertificates();
+        console.log(formData);
     }, [formData])
 
     return (
         <Screen>
             <View style={style.header}>
-                <Pressable style={style.goBack} onPress={navigation.goBack}>
+                <Pressable style={style.goBack} onPress={() => navigation.replace("UserTabRoutes")}>
                     <MaterialCommunityIcons name='arrow-left' size={18} />
                     <Text>Voltar</Text>
                 </Pressable>
@@ -130,8 +132,9 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
                     input={{ defaultValue: formData.cpfcnpj }}
                     forwardRef={documentRef}
                 />
+                <ButtonWithLoading label="Salvar alterações" onPress={() => addExpertisesToUser("", "", "")} />
                 <View style={style.trackWrapper}>
-                    <Text>Tracks & Expertises</Text>
+                    <Text style={style.tracktitle}>Tracks & Expertises</Text>
                     {
                         tracks.map((track, key) => {
                             const currentTrack = track[0];

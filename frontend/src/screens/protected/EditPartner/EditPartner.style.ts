@@ -25,7 +25,12 @@ const styles = (theme: CurrentTheme) =>
         trackWrapper: {
             display: 'flex',
             flexDirection: 'column',
-            gap: theme.spacing.sm
+            gap: theme.spacing.md,
+            marginTop: theme.spacing.md
+        },
+        tracktitle: {
+            fontWeight: 'bold',
+            fontSize: 18
         },
         trackAccordion: {},
         expertiseAccordion: {},

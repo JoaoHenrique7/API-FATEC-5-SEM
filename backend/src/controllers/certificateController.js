@@ -11,7 +11,6 @@ module.exports = {
       });
       await newCertificate.save();
       res.status(201).json(newCertificate);
-      console.log(newCertificate)
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

@@ -11,7 +11,6 @@ module.exports = {
       });
       await newExpertise.save();
       res.status(201).json(newExpertise);
-      console.log(newExpertise)
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

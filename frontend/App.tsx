@@ -39,7 +39,7 @@ function App(): React.JSX.Element {
 	const UserTabRoutes = useCallback(() => {
 		return (
 			<Drawer.Navigator
-			initialRouteName="Dashboard"
+			initialRouteName="Parceiros"
 				drawerContent={CustomDrawerCallback}
 				screenOptions={{ header: CustomHeaderCallback, drawerType: 'slide' }}
 			>

@@ -49,7 +49,7 @@ const EditPartnerModal: React.FC<Props> = ({ visible, partner, closeModal, modal
 
         try {
             if (newPartner.nome == undefined || newPartner.email == undefined || newPartner.cpfcnpj == undefined || newPartner.tipo == undefined){
-                return Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
+                return Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um parceiro');
             } else {
                 const data = await PartnerService.addPartner(newPartner);
                 setNewPartnerName(''); // Limpa o campo de entrada
@@ -57,13 +57,13 @@ const EditPartnerModal: React.FC<Props> = ({ visible, partner, closeModal, modal
                 setNewPartnerCpfCnpj(''); // Limpa o campo de entrada
                 setNewPartnerType(''); // Limpa o campo de entrada
     
-                Alert.alert('Gestor de Parceiros', 'Consultor de aliança adicionado com sucesso!', [
+                Alert.alert('Gestor de Parceiros', 'Parceiro adicionado com sucesso!', [
                     {text: 'OK', onPress:closeModal},
                 ]);
             }    
         } catch (error) {
             console.error('Erro ao adicionar parceiro:', error);
-            Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um consultor de alianças');
+            Alert.alert('Gestor de Parceiros', 'Erro ao adicionar um parceiro');
         }
     };
 

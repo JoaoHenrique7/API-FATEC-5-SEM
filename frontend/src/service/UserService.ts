@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const BASE_URL = 'http://localhost:3000/users'; // rota correta antes do deploy na AWS
-const BASE_URL = 'http://192.168.15.68:3000/users'; // IP do João
+const BASE_URL = 'http://192.168.138.87:3000/users'; // IP do João
 
 const UserService = {
   fetchUsers: async (): Promise<any[]> => {

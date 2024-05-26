@@ -33,7 +33,6 @@ module.exports = {
       });
       await newUser.save();
       res.status(201).json(newUser);
-      console.log(newUser);
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -164,7 +163,6 @@ module.exports = {
       // html: "<b>Hello world?</b>", // html body
     });
     res.status(200).json({ message: code});
-    console.log("Message sent: %s", info.messageId);
   }
 }
 
