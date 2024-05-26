@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { View, Alert, Pressable } from 'react-native';
+import { View, Alert, Pressable, TextInput } from 'react-native';
 import PartnerService from '../../../service/PartnerService';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { ParamListBase } from "@react-navigation/native";
@@ -15,10 +15,24 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
     const [partners, setPartners] = useState<Partner[]>([]);
+    const [search, setSearch] = useState('');
+    const [filteredPartners, setFilteredPartners] = useState<Partner[]>([]);
 
     useEffect(() => {
         fetchPartners();
     }, []);
+
+    useEffect(() => {
+        if (search) {
+            const newFilteredPartners = partners.filter(partner => 
+                partner.name.toLowerCase().includes(search.toLowerCase()) ||
+                partner.email.toLowerCase().includes(search.toLowerCase())
+            );
+            setFilteredPartners(newFilteredPartners);
+        } else {
+            setFilteredPartners(partners);
+        }
+    }, [search, partners]);
 
     const fetchPartners = async () => {
         try {
@@ -70,9 +84,15 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
                     <Text style={style.addButtonContent}>Adicionar parceiro</Text>
                 </Pressable>
             </View>
+            <TextInput
+                style={style.searchInput}
+                placeholder="Buscar parceiro..."
+                value={search}
+                onChangeText={(text) => setSearch(text)}
+            />
             <View style={style.datalist}>
                 {
-                    partners.map((partner: Partner, key: number) => {
+                    filteredPartners.map((partner: Partner, key: number) => {
                         return (
                             <View key={key} style={style.item}>
                                 <View style={style.itemData}>
