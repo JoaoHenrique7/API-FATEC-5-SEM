@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { View, Alert, Pressable } from 'react-native';
+import { View, Alert, Pressable, TextInput } from 'react-native';
 import UserService from '../../../service/UserService';
-import ListItem from 'react-native-elements/dist/list/ListItem';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { ParamListBase } from "@react-navigation/native";
 import { ThemeContextType } from '../../../contexts/ThemeContext/ThemeContext.context';
@@ -16,11 +15,27 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
     const [users, setUsers] = useState<User[]>([]);
+    const [search, setSearch] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
     useEffect(() => {
         fetchUsers();
     }, []);
 
+    useEffect(() => {
+        if (search) {
+            const newFilteredUsers = users.filter(user => 
+                (user.tipo !== "0") && (
+                    user.nome.toLowerCase().includes(search.toLowerCase()) ||
+                    user.email.toLowerCase().includes(search.toLowerCase())
+                )
+            );
+            setFilteredUsers(newFilteredUsers);
+        } else {
+            setFilteredUsers(users.filter(user => user.tipo !== "0"));
+        }
+    }, [search, users]);
+	
     const fetchUsers = async () => {
         try {
             const data = await UserService.fetchUsers();
@@ -53,18 +68,6 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
         setModalTitle("Adicionar Consultor de Alianças");
     };
 
-    // Render each item in the list
-    // const renderItem = ({ item }: { item: User }) => (
-    //     <ListItem bottomDivider key={item._id}>
-    //         <ListItem.Content>
-    //         <ListItem.Title>{item.nome}</ListItem.Title>
-    //         {/* Outros campos do usuário */}
-    //         </ListItem.Content>
-    //         <MaterialCommunityIcons onPress={() => editUserModal(item)} name="account-edit" size={30} color="black" />
-    //         <MaterialCommunityIcons onPress={() => Alert.alert('Gestor de Parceiros', 'Deseja excluir este usuário?', [{text: 'Não', onPress: () => console.log('Cancel pressed')}, {text: 'Sim', onPress: () => deleteUser(item._id)}])} name="account-remove" size={30} color="black" />
-    //     </ListItem>
-    // );
-
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [isEdition, setEditionFlag] = useState<boolean>(false);
     const [modalTitle, setModalTitle] = useState<string>("");
@@ -74,7 +77,7 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
         fetchUsers();
         setModalVisible(false);
     };
-
+	
     return (
         <View style={style.container}>
             <View style={style.events}>
@@ -83,10 +86,15 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
                     <Text style={style.addButtonContent}>Adicionar consultor</Text>
                 </Pressable>
             </View>
+            <TextInput
+                style={style.searchInput}
+                placeholder="Buscar consultor..."
+                value={search}
+                onChangeText={(text) => setSearch(text)}
+            />
             <View style={style.datalist}>
                 {
-                    users.map((user: User, key: number) => {
-                        if (user.tipo === "0") return;
+                    filteredUsers.map((user: User, key: number) => {
                         return (
                             <View key={key} style={style.item}>
                                 <View style={style.itemData}>
@@ -107,15 +115,6 @@ function ManageUsers({ navigation }: StackScreenProps<ParamListBase>): React.JSX
                 }
             </View>
             {modalVisible && <EditUserModal user={modalData} closeModal={() => updateListAfterModalClose()} visible={modalVisible} modalTitle={modalTitle} isEdition={isEdition} />}
-            {/* <View>
-                <FlatList
-                    data={users}
-                    renderItem={renderItem}
-                    keyExtractor={item => item._id}
-                />
-                {modalVisible && <EditUserModal user={modalData} closeModal={() => updateListAfterModalClose()} visible={modalVisible} modalTitle={modalTitle} isEdition={isEdition} />}
-                <MaterialCommunityIcons style={style.addButton} onPress={() => addUserModal()} name="account-plus" size={45} color="black" />
-            </View> */}
         </View>
     );
 };

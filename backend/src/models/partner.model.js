@@ -5,7 +5,8 @@ const partnerSchema = new mongoose.Schema({
     cpfcnpj: String,
     email: String,
     tipo: String,
-    expertises: [] 
+    expertises: [],
+    createAt: String
 });
 
 module.exports = mongoose.model('Partner', partnerSchema);

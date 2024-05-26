@@ -12,7 +12,9 @@ const certificateSchema = new mongoose.Schema({
     required: true
   },
   nivel: String,
-  certificado: String
+  certificado: String,
+  createAt: String,
+
 });
 
 const Certificate = mongoose.model('Certificate', certificateSchema);

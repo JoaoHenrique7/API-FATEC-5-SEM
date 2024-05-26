@@ -1,16 +1,21 @@
-const Partner = require('../models/partner.model');
+const Partner = require("../models/partner.model");
 
 module.exports = {
-
   // Rota para criar um partner
   createPartner: async (req, res) => {
     try {
+      // data atual do brasil
+      const now = new Date();
+      const brazilOffset = -3;
+      const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+      const DateTime = new Date(utcTime + 3600000 * brazilOffset);
       const newPartner = new Partner({
         name: req.body.nome,
         cpfcnpj: req.body.cpfcnpj,
         email: req.body.email,
-        tipo: 'parceiro',
-        expertises: []
+        tipo: "parceiro",
+        expertises: [],
+        createAt: DateTime
       });
       await newPartner.save();
       res.status(201).json(newPartner);
@@ -34,7 +39,7 @@ module.exports = {
     try {
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
       res.json(partner);
     } catch (err) {
@@ -47,18 +52,15 @@ module.exports = {
     try {
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
 
-      const { nome, cpfcnpj, email, tipo, expertises } = req.body;
-  
-      console.log(req.body);
+      const { nome, cpfcnpj, email, tipo } = req.body;
 
-      partner.name = nome !== undefined ? nome : partner.name;
-      partner.email = email !== undefined ? email : partner.email;
-      partner.cpfcnpj = cpfcnpj !== undefined ? cpfcnpj : partner.cpfcnpj;
-      partner.tipo = tipo !== undefined ? tipo : partner.tipo;
-      partner.expertises = expertises !== undefined ? expertises : partner.expertises;
+      user.nome = nome !== undefined ? nome : user.nome;
+      user.email = email !== undefined ? email : user.email;
+      user.cpfcnpj = cpfcnpj !== undefined ? cpfcnpj : user.cpfcnpj;
+      user.tipo = tipo !== undefined ? tipo : user.tipo;
 
       // if (req.body.name != null) {
       //   partner.name = req.body.name;
@@ -80,15 +82,13 @@ module.exports = {
 
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
-      await partner.deleteOne();
-      res.json({ message: 'Partner deleted' });
+      await partner.remove();
+      res.json({ message: "Partner deleted" });
     } catch (err) {
       console.log(err.message);
       return res.status(500).json({ message: err.message });
     }
-  }
-
-}
-
+  },
+};
