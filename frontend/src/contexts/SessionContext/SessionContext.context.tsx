@@ -11,7 +11,6 @@ export type SessionContextType = {
     session: Session;
     login: (user: User) => void;
     logout: () => void;
-    check: (check: [boolean, boolean]) => void;
 }
 
 export const SessionContext: Context<SessionContextType | undefined> = createContext<SessionContextType | undefined>(undefined);
@@ -35,7 +34,7 @@ function SessionContextProvider({ children }: { children: React.ReactNode }): Re
         setSession((prev) => ({ ...prev, check: check  }))
     }
 
-    return <SessionContext.Provider value={{ session, login, logout, check }}>{children}</SessionContext.Provider>
+    return <SessionContext.Provider value={{ session, login, logout }}>{children}</SessionContext.Provider>
 }
 
 export default SessionContextProvider;

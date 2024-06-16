@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const BASE_URL = 'http://192.168.15.56:3000/partners';
 
@@ -26,6 +26,16 @@ const PartnerService = {
   updatePartner: async (updatedPartnerData : any): Promise<any> => {
     try {
       const response = await axios.patch(`${BASE_URL}/${updatedPartnerData._id}`, updatedPartnerData);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao adicionar parceiro:', error);
+      throw error;
+    }
+  },
+
+  updatePartnerExpertise: async (id: string, updatedPartnerData : any): Promise<any> => {
+    try {
+      const response = await axios.patch(`${BASE_URL}/${id}/expertises`, updatedPartnerData);
       return response.data;
     } catch (error) {
       console.error('Erro ao adicionar parceiro:', error);

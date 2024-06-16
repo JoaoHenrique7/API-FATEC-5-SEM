@@ -52,13 +52,6 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
         }
     };
 
-    const editPartnerModal = async (selectedPartner: Partner) => {
-        setModalData(selectedPartner);
-        setModalVisible(true);
-        setEditionFlag(true);
-        setModalTitle("Editar Parceiro");
-    };
-
     const addPartnerModal = async () => {
         setModalData(null);
         setModalVisible(true);

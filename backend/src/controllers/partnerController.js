@@ -62,9 +62,24 @@ module.exports = {
       user.cpfcnpj = cpfcnpj !== undefined ? cpfcnpj : user.cpfcnpj;
       user.tipo = tipo !== undefined ? tipo : user.tipo;
 
-      // if (req.body.name != null) {
-      //   partner.name = req.body.name;
-      // }
+      await partner.save();
+      res.json(partner);
+    } catch (err) {
+      console.log(err.message)
+      return res.status(500).json({ message: err.message });
+    }
+  },
+
+  updatePartnerExpertises: async (req, res) => {
+    try {
+      const partner = await Partner.findById(req.params.id);
+      if (partner == null) {
+        console.log('n achou partner');
+        return res.status(404).json({ message: "Partner not found" });
+      }
+
+      const { expertises } = req.body;
+      partner.expertises = expertises;
       await partner.save();
       res.json(partner);
     } catch (err) {
