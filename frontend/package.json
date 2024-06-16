@@ -11,6 +11,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.1.17",

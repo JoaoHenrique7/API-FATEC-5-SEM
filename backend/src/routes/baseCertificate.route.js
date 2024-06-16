@@ -5,6 +5,7 @@ const baseCertificateController = require('../controllers/baseCertificateControl
 router.post('/', baseCertificateController.createBaseCertificate);
 router.get('/', baseCertificateController.getAllBaseCertificates);
 router.get('/:id', baseCertificateController.getBaseCertificateById);
-
+router.post('/allTrack', baseCertificateController.getAllBaseCertificateByTrack);
+router.post('/byName', baseCertificateController.getCertificateByName);
 
 module.exports = router;
