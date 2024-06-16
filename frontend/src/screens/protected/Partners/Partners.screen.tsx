@@ -95,8 +95,8 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
                     filteredPartners.map((partner: Partner, key: number) => {
                         return (
                             <View key={key} style={style.item}>
-                                <View style={style.itemData}>
-                                    <Text style={style.mainData} numberOfLines={1}>{partner.name}</Text>
+                                <View style={style.itemData} >
+                                    <Text style={style.mainData} onPress={() => navigation.navigate('ExportPartners', partner)} numberOfLines={1}>{partner.name}</Text>
                                     <Text style={style.subData} numberOfLines={1}>{partner.email}</Text>
                                 </View>
                                 <View style={style.itemActions}>

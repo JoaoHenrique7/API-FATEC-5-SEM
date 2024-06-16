@@ -15,6 +15,7 @@ import SessionContextProvider from './src/contexts/SessionContext/SessionContext
 import ManageUsers from './src/screens/admin/ManageUsers/ManageUsers.screen';
 import PartnersScreen from './src/screens/protected/Partners/Partners.screen';
 import EditPartnerScreen from './src/screens/protected/EditPartner/EditPartner.screen';
+import ExportPartnerScreen from './src/screens/protected/ExportPartners/ExportPartners.screen';
 
 function App(): React.JSX.Element {
 	const Drawer = createDrawerNavigator();
@@ -60,6 +61,7 @@ function App(): React.JSX.Element {
 						<Stack.Screen name="RecoverPassword" component={RecoverPasswordScreen}/>
 						<Stack.Screen name="AdminTabRoutes" component={AdminTabRoutes} />
 						<Stack.Screen name="UserTabRoutes" component={UserTabRoutes} />
+						<Stack.Screen name="ExportPartners" component={ExportPartnerScreen} />
 						<Stack.Group screenOptions={{ presentation: 'modal' }}>
 							<Stack.Screen name='EditPartner' component={EditPartnerScreen} />
 						</Stack.Group>

@@ -37,15 +37,41 @@ module.exports = {
   // Rota para obter um único baseCertificate
   getBaseCertificateById: async (req, res) => {
     try {
-      const baseCertificate = await baseCertificate.findById(req.params.id);
-      if (baseCertificate == null) {
+      const certificate = await baseCertificate.findById(req.params.id);
+      if (certificate == null) {
         return res.status(404).json({ message: 'baseCertificate not found' });
       }
-      res.json(baseCertificate);
+      res.json(certificate);
     } catch (err) {
       return res.status(500).json({ message: err.message });
     }
   },
 
+  getAllBaseCertificateByTrack: async (req, res) => {
+    try {
+      const { track } = req.body;
+
+      const certificate = await baseCertificate.find({ track: track });
+      if (certificate == null) {
+        return res.status(404).json({ message: "baseCertificate not found" });
+      }
+      res.status(200).json(certificate);
+    } catch (err) {
+      return res.status(500).json({ peri: err.message });
+    }
+  },
+  getCertificateByName: async (req, res) => {
+    try {
+      const { name } = req.body;
+
+      const certificate = await baseCertificate.findOne({ name: name });
+      if (certificate == null) {
+        return res.status(404).json({ message: "baseCertificate not found" });
+      }
+      res.status(200).json(certificate);
+    } catch (err) {
+      return res.status(500).json({ peri: err.message });
+    }
+  },
 }
 
