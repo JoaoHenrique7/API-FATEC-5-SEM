@@ -65,7 +65,9 @@ const styles = (theme: CurrentTheme) =>
         saveBtn: {
             marginTop: theme.spacing.md,
             backgroundColor: theme.palette.primary.main,
-            borderRadius: 4
+            borderRadius: 4,
+            alignItems: 'center',
+            justifyContent: 'center',
         },
         btnText: {
             color: theme.palette.neutral[100],
