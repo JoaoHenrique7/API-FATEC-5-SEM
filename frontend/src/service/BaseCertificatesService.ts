@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BaseCertificate } from "../types/definitions";
 
-const BASE_URL = 'http://192.168.138.87:3000';
+const BASE_URL = 'http://192.168.15.56:3000';
 
 const BaseCertificatesService = {
     all: async () => {

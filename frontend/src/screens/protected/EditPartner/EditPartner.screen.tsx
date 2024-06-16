@@ -8,12 +8,13 @@ import useTheme from "../../../contexts/ThemeContext/useTheme.hook";
 import { ThemeContextType } from "../../../contexts/ThemeContext/ThemeContext.context";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./EditPartner.style";
-import { Partner } from "../../../types/definitions";
+import { BaseCertificate, Partner } from "../../../types/definitions";
 import TextInputGroup from "../../../components/TextInputGroup/TextInputGroup.component";
-import { CheckBox, ListItem } from "@rneui/themed";
 import PartnerService from "../../../service/PartnerService";
 import useSession from "../../../contexts/SessionContext/useSession.hook";
 import ButtonWithLoading from "../../../components/ButtonWithLoading/ButtonWithLoading.component";
+import BaseCertificatesService from "../../../service/BaseCertificatesService";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase>): React.JSX.Element {
     const { theme }: ThemeContextType = useTheme();
@@ -28,77 +29,41 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
     const partner: Partner = route.params as Partner;
 
     const [formData, setFormData] = useState<Partner>(partner);
-    const [tracks, setTracks] = useState<[string, { name: string, qualifiers: string[] }[]][]>([
-        ["Cloud Sell Track", [
-            { name: "B2B/B2C Field Service", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] },
-            { name: "B2B Marketing", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] },
-            { name: "B2C Marketing", qualifiers: ["Sales Specialists*", "Solutions Engineers*"] }
-        ]],
-        ["Cloud Build Track", [
-            { name: "Powered by Oracle Autonomous Database Cloud", qualifiers: ["Oracle Cloud Marketplace", "Public Support for Oracle Cloud"] },
-            { name: "Powered by Oracle Exadata Cloud", qualifiers: ["Oracle Cloud Marketplace", "Public Support for Oracle Cloud"] }
-        ]]
-    ]);
-    const [trackExpanded, setTrackExpanded] = useState<string | undefined>(undefined);
-    const [expertiseExpanded, setExpertiseExpanded] = useState<string | undefined>(undefined);
+    const [tracks, setTracks] = useState<string[]>([]);
 
     const nameRef = useRef<TextInput>(null);
     const emailRef = useRef<TextInput>(null);
     const documentRef = useRef<TextInput>(null);
 
-    const handleTrackExpand = (selectedTrack: string) => {
-        if (trackExpanded === selectedTrack) { setTrackExpanded(undefined); return; }
-        setExpertiseExpanded(undefined);
-        setTrackExpanded(selectedTrack);
-    }
-
-    const handleExpertiseExpand = (selectedExpertise: string) => {
-        if (expertiseExpanded === selectedExpertise) { setExpertiseExpanded(undefined); return; }
-        setExpertiseExpanded(selectedExpertise);
-    }
-
-    const addExpertisesToUser = async (track: string, expertise: string, qualifier: string) => {
+    const addExpertisesToUser = async () => {
         const part: Omit<Partner, "name"> & { nome: string } = {
             _id: partner._id,
             cpfcnpj: formData.cpfcnpj,
             email: formData.email,
             nome: formData.name,
             tipo: partner.tipo,
-            expertises: [
-                { name: "B2B/B2C Field Service", qualifiers: ["Sales Specialists*", "Solutions Engineers*"], track: "Cloud Sell Track" },
-            ]
+            expertises: partner.expertises
         }
 
         await PartnerService.updatePartner(part);
     }
 
     useEffect(() => {
-        // const fetchCertificates = async () => {
-        //     const response = await BaseCertificatesService.all();
+        const getTracks = async () => {
+            const response: BaseCertificate[] | { message: string } = await BaseCertificatesService.all();
 
-        //     if ("message" in response) return;
+            if ("message" in response) return;
 
-        //     const tracksSet = new Set<string>();
-        //     const tracks: { [key: string]: { name: string, qualifiers: string[] }[] } = {}
+            const uniqueTracks = new Set<string>();
 
-        //     for (const item of response) tracksSet.add(item.track);
-        //     for (const track of tracksSet) {
-        //         const expertisesWithTrack = response.filter((item) => item.track === track);
+            for (const certificate of response) {
+                uniqueTracks.add(certificate.track);
+            }
 
-        //         if (!tracks[track]) tracks[track] = [];
+            setTracks(Array.from(uniqueTracks));
+        }
 
-        //         expertisesWithTrack.forEach((expertise) => {
-        //             tracks[track].push({ name: expertise.name, qualifiers: expertise.qualifiers });
-        //         })
-        //     }
-
-        //     const tracksArray = Object.entries(tracks);
-
-        //     setTracks(tracksArray);
-        // }
-
-        // fetchCertificates();
-        console.log(formData);
+        getTracks();
     }, [formData])
 
     return (
@@ -132,10 +97,16 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
                     input={{ defaultValue: formData.cpfcnpj }}
                     forwardRef={documentRef}
                 />
-                <ButtonWithLoading label="Salvar alterações" onPress={() => addExpertisesToUser("", "", "")} />
+                <ButtonWithLoading label="Salvar alterações" onPress={() => addExpertisesToUser()} />
                 <View style={style.trackWrapper}>
                     <Text style={style.tracktitle}>Tracks & Expertises</Text>
-                    {
+                    {tracks.map((track, key) => (
+                        <TouchableOpacity onPress={() => navigation.navigate('EditPartnerTracks', { track })} style={style.trackBtn} key={key}>
+                            <Text>{track}</Text>
+                            <MaterialCommunityIcons name="open-in-app" />
+                        </TouchableOpacity>
+                    ))}
+                    {/* {
                         tracks.map((track, key) => {
                             const currentTrack = track[0];
                             const expertisesList = track[1];
@@ -209,7 +180,7 @@ function EditPartnerScreen({ navigation, route }: StackScreenProps<ParamListBase
                                 </ListItem.Accordion>
                             )
                         })
-                    }
+                    } */}
                 </View>
             </View>
         </Screen>
