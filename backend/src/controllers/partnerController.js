@@ -1,16 +1,21 @@
-const Partner = require('../models/partner.model');
+const Partner = require("../models/partner.model");
 
 module.exports = {
-
   // Rota para criar um partner
   createPartner: async (req, res) => {
     try {
+      // data atual do brasil
+      const now = new Date();
+      const brazilOffset = -3;
+      const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+      const DateTime = new Date(utcTime + 3600000 * brazilOffset);
       const newPartner = new Partner({
-        name: req.body.name,
+        name: req.body.nome,
         cpfcnpj: req.body.cpfcnpj,
         email: req.body.email,
-        tipo: 'parceiro',
-        expertises: ''
+        tipo: "parceiro",
+        expertises: [],
+        createAt: DateTime
       });
       await newPartner.save();
       res.status(201).json(newPartner);
@@ -34,7 +39,7 @@ module.exports = {
     try {
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
       res.json(partner);
     } catch (err) {
@@ -47,22 +52,38 @@ module.exports = {
     try {
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
 
       const { nome, cpfcnpj, email, tipo } = req.body;
-  
+
       user.nome = nome !== undefined ? nome : user.nome;
       user.email = email !== undefined ? email : user.email;
       user.cpfcnpj = cpfcnpj !== undefined ? cpfcnpj : user.cpfcnpj;
       user.tipo = tipo !== undefined ? tipo : user.tipo;
 
-      // if (req.body.name != null) {
-      //   partner.name = req.body.name;
-      // }
       await partner.save();
       res.json(partner);
     } catch (err) {
+      console.log(err.message)
+      return res.status(500).json({ message: err.message });
+    }
+  },
+
+  updatePartnerExpertises: async (req, res) => {
+    try {
+      const partner = await Partner.findById(req.params.id);
+      if (partner == null) {
+        console.log('n achou partner');
+        return res.status(404).json({ message: "Partner not found" });
+      }
+
+      const { expertises } = req.body;
+      partner.expertises = expertises;
+      await partner.save();
+      res.json(partner);
+    } catch (err) {
+      console.log(err.message)
       return res.status(500).json({ message: err.message });
     }
   },
@@ -70,16 +91,19 @@ module.exports = {
   // Rota para excluir um partner
   deletePartner: async (req, res) => {
     try {
+      const { id } = req.params;
+
+      console.log(id)
+
       const partner = await Partner.findById(req.params.id);
       if (partner == null) {
-        return res.status(404).json({ message: 'Partner not found' });
+        return res.status(404).json({ message: "Partner not found" });
       }
       await partner.remove();
-      res.json({ message: 'Partner deleted' });
+      res.json({ message: "Partner deleted" });
     } catch (err) {
+      console.log(err.message);
       return res.status(500).json({ message: err.message });
     }
-  }
-
-}
-
+  },
+};

@@ -12,6 +12,10 @@ const styles = (theme: CurrentTheme) =>
 			textTransform: 'uppercase',
 			fontSize: 12,
 		},
+		inputContainer: {
+			flexDirection: 'row',
+			alignItems: 'center',
+		},
 		input: {
 			backgroundColor: theme.palette.neutral[200],
 			borderWidth: 1,
@@ -20,14 +24,13 @@ const styles = (theme: CurrentTheme) =>
 			borderRadius: 4,
 			padding: theme.spacing.sm,
 			height: 44,
+			flex: 1,
 		},
 		iconContainer: {
-			position: 'absolute',
-			top: 30,
-			right: 18,
-			zIndex: 1,
+			marginTop: theme.spacing.xs,
 			justifyContent: 'center',
-			alignItems: 'center',
+			alignItems: 'flex-start', // Alinha o ícone à esquerda
+			paddingLeft: theme.spacing.sm, // Adiciona algum espaço à esquerda
 		},
 		icon: {
 			color: theme.palette.neutral[400],

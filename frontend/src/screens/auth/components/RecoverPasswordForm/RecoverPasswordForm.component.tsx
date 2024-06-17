@@ -25,6 +25,7 @@ function RecoverPasswordForm(props: FormProps) {
     const { navigation } = props;
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
 
     const [screen, setScreen] = useState(Screen.EmailInput);
 
@@ -114,9 +115,16 @@ function RecoverPasswordForm(props: FormProps) {
             case Screen.NewPassword:
                 return (
                     <>
-                        <Text>Nova senha</Text>
-                        <TextInputGroup label="Nova Senha" key="newPassword"onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPassword: value }))}/>
-                        <TextInputGroup label="Confirme a nova senha" key="newPasswordVerify" onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPasswordConfire: value }))}/>
+                        <TextInputGroup
+                            secureTextEntry={true}                        
+                            label="Nova Senha" 
+                            key="newPassword"
+                            onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPassword: value }))}/>
+                        <TextInputGroup 
+                            secureTextEntry={true}  
+                            label="Confirme a nova senha" 
+                            key="newPasswordVerify" 
+                            onChangeText={(value: string) => setFormData(prev => ({ ...prev, newPasswordConfire: value }))}/>
                         <ButtonWithLoading label="Enviar nova Senha" onPress={createNewPassword} />
                     </>
                 );

@@ -174,6 +174,7 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
     <a href="https://youtube.com/shorts/E7BV9YUvAck?feature=share">Link para uma melhor resolução</a>
 </p>
    <br>
+
 </details>
 <br>
 
@@ -217,6 +218,41 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 </p>
 
    <br>
+</details>
+<br>
+
+<h2>Sprint 4</h2>
+
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+
+![Equipe bytech](/readme/backlogSprint4.jpeg)
+
+   <br>
+
+ <h3 align="center">Critérios de aceitação</h3>
+
+
+![Equipe bytech](/readme/criterioAceitacaoSprint4.jpeg)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint4.jpeg)
+
+   <br>
+
+   <h3 align="center">Dashboard por Tracks</h3>
+
+<p align="center">
+    <img src="/readme/dashboardTracks.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/tHzWEtnuPaU?feature=share">Link para uma melhor resolução</a>
+</p>
+
 </details>
 <br>
 

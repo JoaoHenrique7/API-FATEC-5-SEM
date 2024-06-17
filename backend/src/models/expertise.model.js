@@ -9,7 +9,11 @@ const expertiseSchema = new mongoose.Schema({
   niveis: [{
     nome: String,
     pontuacao: Number
-  }]
+  }],
+  createAt: {
+    type: String,
+    required: true
+  }
 });
 
 const Expertise = mongoose.model('Expertise', expertiseSchema);

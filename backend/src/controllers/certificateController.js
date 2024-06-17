@@ -5,13 +5,18 @@ module.exports = {
   // Rota para criar um certificate
   createCertificate: async (req, res) => {
     try {
+      // data atual do brasil
+      const now = new Date();
+      const brazilOffset = -3;
+      const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+      const DateTime = new Date(utcTime + 3600000 * brazilOffset);
       const newCertificate = new Certificate({
         name: req.body.name,
+        createAt: DateTime
         // description: req.body.description,
       });
       await newCertificate.save();
       res.status(201).json(newCertificate);
-      console.log(newCertificate)
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

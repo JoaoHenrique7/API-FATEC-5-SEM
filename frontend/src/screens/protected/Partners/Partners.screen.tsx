@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
-import { View, Alert, Pressable } from 'react-native';
+import { View, Alert, Pressable, TextInput } from 'react-native';
 import PartnerService from '../../../service/PartnerService';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { ParamListBase } from "@react-navigation/native";
@@ -15,10 +15,24 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
     const { theme }: ThemeContextType = useTheme();
     const style = useMemo(() => styles(theme), [theme]);
     const [partners, setPartners] = useState<Partner[]>([]);
+    const [search, setSearch] = useState('');
+    const [filteredPartners, setFilteredPartners] = useState<Partner[]>([]);
 
     useEffect(() => {
         fetchPartners();
     }, []);
+
+    useEffect(() => {
+        if (search) {
+            const newFilteredPartners = partners.filter(partner => 
+                partner.name.toLowerCase().includes(search.toLowerCase()) ||
+                partner.email.toLowerCase().includes(search.toLowerCase())
+            );
+            setFilteredPartners(newFilteredPartners);
+        } else {
+            setFilteredPartners(partners);
+        }
+    }, [search, partners]);
 
     const fetchPartners = async () => {
         try {
@@ -36,13 +50,6 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
         } catch (error) {
             console.error('Erro ao excluir parceiro:', error);
         }
-    };
-
-    const editPartnerModal = async (selectedPartner: Partner) => {
-        setModalData(selectedPartner);
-        setModalVisible(true);
-        setEditionFlag(true);
-        setModalTitle("Editar Parceiro");
     };
 
     const addPartnerModal = async () => {
@@ -70,17 +77,23 @@ function PartnersScreen({ navigation }: StackScreenProps<ParamListBase>): React.
                     <Text style={style.addButtonContent}>Adicionar parceiro</Text>
                 </Pressable>
             </View>
+            <TextInput
+                style={style.searchInput}
+                placeholder="Buscar parceiro..."
+                value={search}
+                onChangeText={(text) => setSearch(text)}
+            />
             <View style={style.datalist}>
                 {
-                    partners.map((partner: Partner, key: number) => {
+                    filteredPartners.map((partner: Partner, key: number) => {
                         return (
                             <View key={key} style={style.item}>
-                                <View style={style.itemData}>
-                                    <Text style={style.mainData} numberOfLines={1}>{partner.name}</Text>
+                                <View style={style.itemData} >
+                                    <Text style={style.mainData} onPress={() => navigation.navigate('ExportPartners', partner)} numberOfLines={1}>{partner.name}</Text>
                                     <Text style={style.subData} numberOfLines={1}>{partner.email}</Text>
                                 </View>
                                 <View style={style.itemActions}>
-                                    <Pressable style={style.edit} onPress={() => navigation.navigate('EditPartner', partner)}>
+                                    <Pressable style={style.edit} onPress={() => navigation.replace('EditPartner', partner)}>
                                         <MaterialCommunityIcons name='pencil' size={24} />
                                     </Pressable>
                                     <Pressable style={style.delete} onPress={() => Alert.alert('Gestor de Parceiros', 'Deseja excluir este parceiro?', [{text: 'Não', onPress: () => console.log('Cancel pressed')}, {text: 'Sim', onPress: () => deletePartner(partner._id)}])}>
