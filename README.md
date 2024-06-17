@@ -75,7 +75,7 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 <h2>Sprint 1</h2>
 <details>
   <summary>Detalhes</summary>
-  <h3 align="center">Backlog da Sprint</h3>
+<h3 align="center">Backlog da Sprint</h3>
 
 ![Equipe bytech](/readme/backlogSprint1.png)
 
@@ -92,8 +92,165 @@ As principais funcionalidades do sistema incluem o cadastro e atualização de p
 ![Equipe bytech](/readme/burndownSprint1.png)
 
    <br>
-</details>
 
+<h3 align="center">Login como Administrador.</h3>
+
+<p align="center">
+    <img src="/readme/loginAdministrador.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/QfVdLAiZrwI">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+ <h3 align="center">Editar o perfil consultor de alianças.</h3>
+
+ <p align="center">
+    <img src="/readme/editarConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/k-mWljAZT0U">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+   <h3 align="center">Adicionar consultor de alianças.</h3>
+
+ <p align="center">
+    <img src="/readme/adicionarConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/jaJvUHtxoDg">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+</details>
+<br>
+
+<h2>Sprint 2</h2>
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+![Equipe bytech](/readme/backlogSprint2.png)
+
+   <br>
+
+ <h3 align="center">Critérios de aceitação</h3>
+
+![Equipe bytech](/readme/criterioAceitacaoSprint2.png)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint2.png)
+
+   <br>
+
+   <h3 align="center">Login como Consultor de Alianças.</h3>
+
+<p align="center">
+    <img src="/readme/loginConsultorAliancas.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/GcA-2Alec6g?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+   <h3 align="center">Adicionar parceiro.</h3>
+
+<p align="center">
+    <img src="/readme/adicionarParceiro.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/wMTgTlr982w?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+<h3 align="center">Adicionar Track e Expertise do parceiro.</h3>
+
+<p align="center">
+    <img src="/readme/adicionarTrackExpertise.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/E7BV9YUvAck?feature=share">Link para uma melhor resolução</a>
+</p>
+   <br>
+</details>
+<br>
+
+<h2>Sprint 3</h2>
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+![Equipe bytech](/readme/backlogSprint3.png)
+
+   <br>
+
+ <h3 align="center">Critérios de aceitação</h3>
+
+![Equipe bytech](/readme/criterioAceitacaoSprint3.png)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint3.png)
+
+   <br>
+
+   <h3 align="center">Dashboard</h3>
+
+<p align="center">
+    <img src="/readme/dashboard.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/b0w74Q6awr8?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+
+   <h3 align="center">Filtro nas listagens de consultor de alinaças e parceiros</h3>
+
+<p align="center">
+    <img src="/readme/filter.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/jpSuLVgs6Mg?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   <br>
+</details>
+<br>
+
+<h2>Sprint 4</h2>
+<details>
+  <summary>Detalhes</summary>
+  <h3 align="center">Backlog da Sprint</h3>
+
+![Equipe bytech](/readme/backlogSprint4.jpeg)
+
+   <br>
+
+ <h3 align="center">Critérios de aceitação</h3>
+
+![Equipe bytech](/readme/criterioAceitacaoSprint4.jpeg)
+
+   <br>
+
+   <h3 align="center">Burndown</h3>
+
+![Equipe bytech](/readme/burndownSprint4.jpeg)
+
+   <br>
+
+   <h3 align="center">Dashboard por Tracks</h3>
+
+<p align="center">
+    <img src="/readme/dashboardTracks.gif"/>
+    <br>
+    <a href="https://youtube.com/shorts/tHzWEtnuPaU?feature=share">Link para uma melhor resolução</a>
+</p>
+
+   
+</details>
 <br>
 
 <h1 align="center"><samp>EQUIPE</samp></h1>
